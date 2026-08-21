@@ -30,9 +30,6 @@ export const claimPrize = createServerFn({ method: "POST" })
 
     const score = scorePicks(data.selectedIds);
 
-    const { getSql } = await import("@/lib/db");
-    const sql = await getSql();
-
     let synced = false;
     try {
       const { subscribeToKlaviyo } = await import("@/lib/klaviyo.server");
@@ -46,20 +43,29 @@ export const claimPrize = createServerFn({ method: "POST" })
       console.error("[klaviyo] threw", err);
     }
 
-    await sql`
-      insert into prize_entries
-        (first_name, email, score, selected_ids, option_ids, source, klaviyo_synced)
-      values
-        (
-          ${data.firstName},
-          ${data.email},
-          ${score},
-          ${JSON.stringify(data.selectedIds)},
-          ${JSON.stringify(data.optionIds)},
-          ${data.source},
-          ${synced}
-        )
-    `;
+    try {
+      const { getSql } = await import("@/lib/db");
+      const sql = await getSql();
+      await sql`
+        insert into prize_entries
+          (first_name, email, score, selected_ids, option_ids, source, klaviyo_synced)
+        values
+          (
+            ${data.firstName},
+            ${data.email},
+            ${score},
+            ${JSON.stringify(data.selectedIds)},
+            ${JSON.stringify(data.optionIds)},
+            ${data.source},
+            ${synced}
+          )
+      `;
+    } catch (err) {
+      console.error("[prize] database insert skipped", err);
+      if (!synced) {
+        throw new Error("Could not save your entry. Try again in a moment.");
+      }
+    }
 
     return { ok: true as const, score, synced };
   });
