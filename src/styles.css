@@ -1,0 +1,162 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@font-face {
+  font-family: "Avant Garde";
+  src: url("/fonts/URWGothic-Book.otf") format("opentype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Avant Garde";
+  src: url("/fonts/URWGothic-Demi.otf") format("opentype");
+  font-weight: 500 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@theme {
+  --color-bg: #1d1d1d;
+  --color-surface: color-mix(in oklab, #f5f2ec 6%, #1d1d1d);
+  --color-surface-2: color-mix(in oklab, #f5f2ec 11%, #1d1d1d);
+  --color-fg: #f5f2ec;
+  --color-muted: color-mix(in oklab, #f5f2ec 68%, #1d1d1d);
+  --color-subtle: color-mix(in oklab, #f5f2ec 42%, #1d1d1d);
+  --color-accent: #f5f2ec;
+  --color-accent-fg: #1d1d1d;
+  --color-cream: #f5f2ec;
+  --color-ink: #1d1d1d;
+  --color-success: #8aaa7a;
+  --color-danger: #d07a62;
+  --color-border: color-mix(in oklab, var(--color-fg) 16%, transparent);
+  --color-border-strong: color-mix(in oklab, var(--color-fg) 32%, transparent);
+
+  --font-sans: "Figtree", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Avant Garde", "ITC Avant Garde Gothic", "Century Gothic", ui-sans-serif, sans-serif;
+
+  --text-hero: clamp(3.2rem, 12vw, 7rem);
+  --text-result: clamp(2.2rem, 7vw, 3.6rem);
+  --text-question: clamp(1.35rem, 3.6vw, 2.35rem);
+  --text-tile: clamp(0.72rem, 2.1vw, 1.15rem);
+
+  --tracking-brand: 0.42em;
+  --tracking-ui: 0.18em;
+  --tracking-kicker: 0.28em;
+
+  --leading-display: 0.88;
+
+  --radius-xs: 4px;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 18px;
+  --radius-xl: 28px;
+  --radius-2xl: 36px;
+  --radius-pill: 100px;
+
+  --shadow-tile: 0 10px 30px color-mix(in oklab, #000 28%, transparent);
+
+  --scale-96: 0.96;
+}
+
+@layer base {
+  html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  html,
+  body {
+    min-height: 100%;
+    background: var(--color-bg);
+    color: var(--color-fg);
+    font-family: var(--font-sans);
+    overscroll-behavior: none;
+  }
+
+  button:not(:disabled),
+  [role="button"]:not(:disabled) {
+    cursor: pointer;
+  }
+
+  button,
+  [role="button"] {
+    touch-action: manipulation;
+  }
+
+  h1,
+  h2,
+  h3 {
+    text-wrap: balance;
+    font-family: var(--font-display);
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+}
+
+.flip-stage {
+  perspective: 1800px;
+  width: 100%;
+  min-height: 100dvh;
+  min-height: 100svh;
+}
+
+.flip-card {
+  position: relative;
+  width: 100%;
+  min-height: 100dvh;
+  min-height: 100svh;
+  transform-style: preserve-3d;
+  transition: transform 700ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.flip-card.is-flipped {
+  transform: rotateY(180deg);
+}
+
+.flip-face {
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  overflow: auto;
+}
+
+.flip-face-back {
+  transform: rotateY(180deg);
+}
+
+.grain {
+  pointer-events: none;
+  position: fixed;
+  inset: 0;
+  z-index: 40;
+  opacity: 0.04;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='.9'/%3E%3C/svg%3E");
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .flip-card {
+    transition: opacity 250ms ease;
+    transform: none !important;
+  }
+
+  .flip-face-back {
+    transform: none;
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .flip-card.is-flipped .flip-face-front {
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .flip-card.is-flipped .flip-face-back {
+    opacity: 1;
+    pointer-events: auto;
+  }
+}

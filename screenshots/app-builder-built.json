@@ -1,0 +1,37 @@
+{
+  "url": "http://127.0.0.1:8081/",
+  "viewports": {
+    "desktop": {
+      "width": 1280,
+      "height": 800,
+      "status": 200,
+      "title": "Spot the Junk",
+      "hasCanvas": false,
+      "bodyTextLen": 138,
+      "bodyTextHash": "ac03a2e9290763cc2988e132b5e98fd206d111e7e25165a97af256ea199b4d0c",
+      "bodyTextPrefix": "CHIEF Spot the junk. Nine ingredients. Three never make it into ",
+      "horizontalOverflow": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "screenshot": "/workspace/screenshots/app-builder-built.png"
+    },
+    "mobile": {
+      "width": 390,
+      "height": 844,
+      "status": 200,
+      "title": "Spot the Junk",
+      "hasCanvas": false,
+      "bodyTextLen": 138,
+      "bodyTextHash": "ac03a2e9290763cc2988e132b5e98fd206d111e7e25165a97af256ea199b4d0c",
+      "bodyTextPrefix": "CHIEF Spot the junk. Nine ingredients. Three never make it into ",
+      "horizontalOverflow": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "screenshot": "/workspace/screenshots/app-builder-built-mobile.png"
+    }
+  },
+  "brandWarnings": [],
+  "verdictFile": "/workspace/screenshots/app-builder-built.json",
+  "divergesFromBaseline": false,
+  "baselineReasons": []
+}
