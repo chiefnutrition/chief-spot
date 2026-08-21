@@ -30,9 +30,13 @@ export const claimPrize = createServerFn({ method: "POST" })
 
     const score = scorePicks(data.selectedIds);
 
+    const { isKlaviyoConfigured, subscribeToKlaviyo } = await import("@/lib/klaviyo.server");
+    if (!isKlaviyoConfigured()) {
+      throw new Error("Prize list is not connected. Add KLAVIYO_API_KEY and KLAVIYO_LIST_ID in Vercel.");
+    }
+
     let synced = false;
     try {
-      const { subscribeToKlaviyo } = await import("@/lib/klaviyo.server");
       synced = await subscribeToKlaviyo({
         email: data.email,
         firstName: data.firstName,
@@ -41,6 +45,9 @@ export const claimPrize = createServerFn({ method: "POST" })
       });
     } catch (err) {
       console.error("[klaviyo] threw", err);
+    }
+    if (!synced) {
+      throw new Error("Could not add you to the prize list. Check the Klaviyo key and list ID, then try again.");
     }
 
     try {
