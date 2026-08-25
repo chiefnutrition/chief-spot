@@ -39,7 +39,7 @@ export type IconName =
   | "sun"
   | "citrus";
 
-/** 30 options. `junk` = never in a Chief product (correct picks). */
+/** Options pool. `junk` = ultra processed, never in a Chief product (correct picks). */
 export const QUIZ_OPTIONS: QuizOption[] = [
   {
     id: "seed-oils",
@@ -70,20 +70,6 @@ export const QUIZ_OPTIONS: QuizOption[] = [
     why: "A lab sweetener about 200× sugar, with a chemical aftertaste and an unsettled safety record.",
   },
   {
-    id: "fake-colours",
-    label: "Fake colours",
-    kind: "junk",
-    icon: "palette",
-    why: "Synthetic dyes that paint dull food pretty. Colour is not a nutrient.",
-  },
-  {
-    id: "hfcs",
-    label: "Corn syrup",
-    kind: "junk",
-    icon: "cup-soda",
-    why: "Liquid sugar that spikes blood glucose and fills bars with empty sweetness.",
-  },
-  {
     id: "palm-oil",
     label: "Palm oil",
     kind: "junk",
@@ -96,13 +82,6 @@ export const QUIZ_OPTIONS: QuizOption[] = [
     kind: "junk",
     icon: "waves",
     why: "A processed seaweed gum used to thicken. Often linked to gut irritation.",
-  },
-  {
-    id: "msg",
-    label: "MSG",
-    kind: "junk",
-    icon: "flask-round",
-    why: "A flavour shortcut that makes bland processed food taste savoury without adding real food.",
   },
   {
     id: "sucralose",
@@ -124,6 +103,90 @@ export const QUIZ_OPTIONS: QuizOption[] = [
     kind: "junk",
     icon: "wheat",
     why: "Cheap wheat starch and protein used to bulk a bar and cut the cost of real food.",
+  },
+  {
+    id: "maltodextrin",
+    label: "Maltodextrin",
+    kind: "junk",
+    icon: "flask-round",
+    why: "Starch blown apart into a glucose spike. A cheap bulk powder that hits like sugar.",
+  },
+  {
+    id: "soluble-corn-fibre",
+    label: "Soluble corn fibre",
+    kind: "junk",
+    icon: "wheat",
+    why: "“Fibre” refined from corn. A syrup cousin wearing a health claim.",
+  },
+  {
+    id: "brown-rice-syrup",
+    label: "Brown rice syrup",
+    kind: "junk",
+    icon: "cup-soda",
+    why: "Health-halo sugar. Still a syrup, still a spike, still not food.",
+  },
+  {
+    id: "natural-flavours",
+    label: "Natural flavours",
+    kind: "junk",
+    icon: "flower",
+    why: "Sounds like a vanilla bean. Usually a lab blend you can’t trace.",
+  },
+  {
+    id: "erythritol",
+    label: "Erythritol",
+    kind: "junk",
+    icon: "candy",
+    why: "The “better” sugar alcohol. Still the reason a low-sugar bar wrecks your afternoon.",
+  },
+  {
+    id: "vegetable-glycerin",
+    label: "Vegetable glycerin",
+    kind: "junk",
+    icon: "droplets",
+    why: "Keeps bars soft and sticky. Processed filler, not an ingredient your nan would cook.",
+  },
+  {
+    id: "pea-isolate",
+    label: "Pea protein isolate",
+    kind: "junk",
+    icon: "bean",
+    why: "Same isolate trick as soy — plant stripped, powdered, and sold as “protein.”",
+  },
+  {
+    id: "soy-lecithin",
+    label: "Soy lecithin",
+    kind: "junk",
+    icon: "bean",
+    why: "An ultra-processed emulsifier squeezed from soy. Tiny dose, still not food.",
+  },
+  {
+    id: "allulose",
+    label: "Allulose",
+    kind: "junk",
+    icon: "test-tube",
+    why: "A trendy “rare sugar” made in a plant — the factory kind.",
+  },
+  {
+    id: "prebiotic-fibre",
+    label: "Prebiotic fibre",
+    kind: "junk",
+    icon: "wheat",
+    why: "Marketed as gut-friendly fibre. Often IMO — functionally a syrup.",
+  },
+  {
+    id: "modified-starch",
+    label: "Modified starch",
+    kind: "junk",
+    icon: "wheat",
+    why: "Whatever starch was cheapest, chemically tweaked to behave in a factory.",
+  },
+  {
+    id: "diglycerides",
+    label: "Mono-diglycerides",
+    kind: "junk",
+    icon: "fuel",
+    why: "Fats taken apart and rebuilt as emulsifiers. Chemistry, not cooking.",
   },
   {
     id: "collagen",
