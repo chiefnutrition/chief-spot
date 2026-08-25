@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { dealRound, scorePicks } from "@/lib/quiz/deal";
 import type { QuizOption } from "@/lib/quiz/options";
 import { AttractScreen } from "./attract-screen";
@@ -16,6 +16,8 @@ export function QuizApp({ embed, kiosk }: { embed: boolean; kiosk: boolean }) {
   const [selectedIds, setSelectedIds] = useState<string[]>([]);
   const [flipped, setFlipped] = useState(false);
   const [score, setScore] = useState(0);
+  const [elapsedMs, setElapsedMs] = useState(0);
+  const startedAt = useRef(0);
 
   const source = kiosk ? "kiosk" : embed ? "embed" : "web";
 
@@ -25,6 +27,8 @@ export function QuizApp({ embed, kiosk }: { embed: boolean; kiosk: boolean }) {
     setSelectedIds([]);
     setFlipped(false);
     setScore(0);
+    setElapsedMs(0);
+    startedAt.current = 0;
   }, []);
 
   useEffect(() => {
@@ -51,6 +55,8 @@ export function QuizApp({ embed, kiosk }: { embed: boolean; kiosk: boolean }) {
     setSelectedIds([]);
     setFlipped(false);
     setScore(0);
+    setElapsedMs(0);
+    startedAt.current = performance.now();
     setPhase("play");
   }
 
@@ -64,6 +70,8 @@ export function QuizApp({ embed, kiosk }: { embed: boolean; kiosk: boolean }) {
 
   function submit() {
     if (selectedIds.length !== 3) return;
+    const started = startedAt.current || performance.now();
+    setElapsedMs(Math.max(0, performance.now() - started));
     setScore(scorePicks(selectedIds));
     requestAnimationFrame(() => setFlipped(true));
   }
@@ -88,6 +96,7 @@ export function QuizApp({ embed, kiosk }: { embed: boolean; kiosk: boolean }) {
           score={score}
           selectedIds={selectedIds}
           optionIds={options.map((o) => o.id)}
+          elapsedMs={elapsedMs}
           source={source}
           onRestart={reset}
         />

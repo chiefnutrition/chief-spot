@@ -71,3 +71,64 @@ export const RESULT_COPY: Record<
     body: "No stress. That's why we exist — extraordinarily clean snacks, nothing to hide.",
   },
 };
+
+const SPEED_LINES = {
+  lightning: [
+    "Sheesh, you know your ingredients!",
+    "Label nerd. We like you already.",
+    "That was a blur. Pack-flipper certified.",
+    "Blink and you junk-spotted.",
+    "Fastest flip in the aisle.",
+  ],
+  quick: [
+    "Clean and decisive. The junk didn't stand a chance.",
+    "That's a confident shopper.",
+    "No second-guessing. Respect.",
+    "You read labels like a menu.",
+    "Quick eyes. Chief energy.",
+  ],
+  steady: [
+    "Thoughtful. That's how the good stuff gets found.",
+    "A proper look. That's the move.",
+    "Not rushed, not lost. Solid pack-flip.",
+    "You gave the fine print a fair go.",
+  ],
+  slow: [
+    "Took your time there, pack flipper.",
+    "The ingredients weren't going anywhere.",
+    "Slow flip. We still love a careful reader.",
+    "Studying the label like it's literature.",
+  ],
+  glacial: [
+    "Did you write a thesis on maltitol?",
+    "We've aged. The junk's still junk.",
+    "That was a meditation. Namaste, pack flipper.",
+    "Take a seat. You earned it.",
+  ],
+} as const;
+
+export type SpeedBand = keyof typeof SPEED_LINES;
+
+export function speedBand(elapsedMs: number): SpeedBand {
+  if (elapsedMs < 5_000) return "lightning";
+  if (elapsedMs < 10_000) return "quick";
+  if (elapsedMs < 15_000) return "steady";
+  if (elapsedMs < 25_000) return "slow";
+  return "glacial";
+}
+
+export function formatElapsed(elapsedMs: number): string {
+  const seconds = Math.max(0, elapsedMs) / 1000;
+  if (seconds < 10) return `${seconds.toFixed(1)}s`;
+  if (seconds < 60) return `${Math.round(seconds)}s`;
+  const minutes = Math.floor(seconds / 60);
+  const rest = Math.round(seconds % 60);
+  return `${minutes}m ${rest}s`;
+}
+
+/** Stable cheeky line for this time so React re-renders don't shuffle it. */
+export function speedLine(elapsedMs: number): string {
+  const lines = SPEED_LINES[speedBand(elapsedMs)];
+  const index = Math.abs(Math.floor(elapsedMs)) % lines.length;
+  return lines[index] ?? lines[0];
+}

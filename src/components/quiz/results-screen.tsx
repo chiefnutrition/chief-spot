@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { claimPrize } from "@/lib/quiz/actions";
-import { optionsById, RESULT_COPY, resultKey } from "@/lib/quiz/deal";
+import { optionsById, RESULT_COPY, resultKey, formatElapsed, speedLine } from "@/lib/quiz/deal";
 import type { QuizOption } from "@/lib/quiz/options";
 import { cn } from "@/lib/utils";
 import { ChiefMark } from "./chief-mark";
@@ -16,12 +16,14 @@ export function ResultsScreen({
   score,
   selectedIds,
   optionIds,
+  elapsedMs,
   source,
   onRestart,
 }: {
   score: number;
   selectedIds: string[];
   optionIds: string[];
+  elapsedMs: number;
   source: "web" | "embed" | "kiosk";
   onRestart: () => void;
 }) {
@@ -105,6 +107,11 @@ export function ResultsScreen({
           {copy.title}
         </h2>
         <p className="mt-3 max-w-md text-pretty text-muted">{copy.body}</p>
+        <p className="mt-4 max-w-md text-pretty text-sm text-cream">
+          <span className="font-display font-semibold tabular-nums">{formatElapsed(elapsedMs)}</span>
+          {" — "}
+          {speedLine(elapsedMs)}
+        </p>
 
         <ul className="mt-6 space-y-2">
           {selected.map((option) => (
