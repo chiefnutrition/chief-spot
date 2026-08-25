@@ -74,4 +74,4 @@ export const QUIZ_OPTIONS: QuizOption[] = [
 export const JUNK_OPTIONS = QUIZ_OPTIONS.filter((o) => o.kind === "junk");
 export const REAL_OPTIONS = QUIZ_OPTIONS.filter((o) => o.kind === "real");
 
-export const QUESTION = "Think you know how to read labels? Take the test!";
+export const QUESTION = "Which 3 ingredients are ultra processed?";
