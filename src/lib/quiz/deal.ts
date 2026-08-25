@@ -107,6 +107,39 @@ const SPEED_LINES = {
   ],
 } as const;
 
+const MISS_LINES = {
+  lightning: [
+    "Slow down, legend. Speed isn't a food group.",
+    "Sheesh — hit the brakes. The junk is still in there.",
+    "Fast hands, fuzzy labels. Slow the flip.",
+    "Easy. The pack isn't a race.",
+  ],
+  quick: [
+    "Slow down a beat. You almost had it.",
+    "Quick, but the junk snuck through. Look twice.",
+    "Easy tiger. Give the fine print a second.",
+    "Slow the cart. One of those is ultra processed.",
+  ],
+  steady: [
+    "Close. Another second on the pack wouldn't hurt.",
+    "Slow it down next time — the junk hides in the middle.",
+    "You looked. Look once more.",
+    "Not a sprint, not quite a win. Flip it slower.",
+  ],
+  slow: [
+    "You took your time and still let junk through. Brutal.",
+    "Slow was the move. Suspicion was the missing bit.",
+    "Plenty of time. Not enough “what's that doing in a bar?”",
+    "Careful reader, messy picks. Slow down and doubt harder.",
+  ],
+  glacial: [
+    "Long think, still a miss. Maybe even slower next time.",
+    "We waited. The junk still won.",
+    "Thesis complete. Next draft: actually spot the junk.",
+    "That was a sit-down exam. The junk still graduated.",
+  ],
+} as const;
+
 export type SpeedBand = keyof typeof SPEED_LINES;
 
 export function speedBand(elapsedMs: number): SpeedBand {
@@ -126,9 +159,10 @@ export function formatElapsed(elapsedMs: number): string {
   return `${minutes}m ${rest}s`;
 }
 
-/** Stable cheeky line for this time so React re-renders don't shuffle it. */
-export function speedLine(elapsedMs: number): string {
-  const lines = SPEED_LINES[speedBand(elapsedMs)];
+/** Perfect score keeps the speed praise. Any miss tells them to slow down. */
+export function speedLine(elapsedMs: number, score: number): string {
+  const band = speedBand(elapsedMs);
+  const lines = score >= 3 ? SPEED_LINES[band] : MISS_LINES[band];
   const index = Math.abs(Math.floor(elapsedMs)) % lines.length;
   return lines[index] ?? lines[0];
 }

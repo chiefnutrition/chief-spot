@@ -110,7 +110,7 @@ export function ResultsScreen({
         <p className="mt-4 max-w-md text-pretty text-sm text-cream">
           <span className="font-display font-semibold tabular-nums">{formatElapsed(elapsedMs)}</span>
           {" — "}
-          {speedLine(elapsedMs)}
+          {speedLine(elapsedMs, score)}
         </p>
 
         <ul className="mt-6 space-y-2">
