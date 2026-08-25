@@ -5,6 +5,8 @@ export type QuizOption = {
   label: string;
   kind: OptionKind;
   icon: IconName;
+  /** ≤25 words. Set on junk only — shown on the results page. */
+  why?: string;
 };
 
 export type IconName =
@@ -39,18 +41,90 @@ export type IconName =
 
 /** 30 options. `junk` = never in a Chief product (correct picks). */
 export const QUIZ_OPTIONS: QuizOption[] = [
-  { id: "seed-oils", label: "Seed oils", kind: "junk", icon: "droplets" },
-  { id: "soy-isolate", label: "Soy isolate", kind: "junk", icon: "bean" },
-  { id: "maltitol", label: "Maltitol", kind: "junk", icon: "candy" },
-  { id: "aspartame", label: "Aspartame", kind: "junk", icon: "flask" },
-  { id: "fake-colours", label: "Fake colours", kind: "junk", icon: "palette" },
-  { id: "hfcs", label: "Corn syrup", kind: "junk", icon: "cup-soda" },
-  { id: "palm-oil", label: "Palm oil", kind: "junk", icon: "tree" },
-  { id: "carrageenan", label: "Carrageenan", kind: "junk", icon: "waves" },
-  { id: "msg", label: "MSG", kind: "junk", icon: "flask-round" },
-  { id: "sucralose", label: "Sucralose", kind: "junk", icon: "test-tube" },
-  { id: "hydrogenated", label: "Hydrogenated oil", kind: "junk", icon: "fuel" },
-  { id: "gluten-fillers", label: "Gluten fillers", kind: "junk", icon: "wheat" },
+  {
+    id: "seed-oils",
+    label: "Seed oils",
+    kind: "junk",
+    icon: "droplets",
+    why: "Cheap industrial oils that oxidise on the shelf and quietly inflame once you eat them.",
+  },
+  {
+    id: "soy-isolate",
+    label: "Soy isolate",
+    kind: "junk",
+    icon: "bean",
+    why: "Protein chemically stripped from soy, then bleached so a bar can shout “high protein.”",
+  },
+  {
+    id: "maltitol",
+    label: "Maltitol",
+    kind: "junk",
+    icon: "candy",
+    why: "The sugar alcohol behind most “low sugar” bar claims, and behind the 3pm stomach ache.",
+  },
+  {
+    id: "aspartame",
+    label: "Aspartame",
+    kind: "junk",
+    icon: "flask",
+    why: "A lab sweetener about 200× sugar, with a chemical aftertaste and an unsettled safety record.",
+  },
+  {
+    id: "fake-colours",
+    label: "Fake colours",
+    kind: "junk",
+    icon: "palette",
+    why: "Synthetic dyes that paint dull food pretty. Colour is not a nutrient.",
+  },
+  {
+    id: "hfcs",
+    label: "Corn syrup",
+    kind: "junk",
+    icon: "cup-soda",
+    why: "Liquid sugar that spikes blood glucose and fills bars with empty sweetness.",
+  },
+  {
+    id: "palm-oil",
+    label: "Palm oil",
+    kind: "junk",
+    icon: "tree",
+    why: "Highly refined fat. Cheap, shelf-stable, and empty of anything your body asked for.",
+  },
+  {
+    id: "carrageenan",
+    label: "Carrageenan",
+    kind: "junk",
+    icon: "waves",
+    why: "A processed seaweed gum used to thicken. Often linked to gut irritation.",
+  },
+  {
+    id: "msg",
+    label: "MSG",
+    kind: "junk",
+    icon: "flask-round",
+    why: "A flavour shortcut that makes bland processed food taste savoury without adding real food.",
+  },
+  {
+    id: "sucralose",
+    label: "Sucralose",
+    kind: "junk",
+    icon: "test-tube",
+    why: "A chlorinated “sugar free” sweetener your gut did not evolve to handle.",
+  },
+  {
+    id: "hydrogenated",
+    label: "Hydrogenated oil",
+    kind: "junk",
+    icon: "fuel",
+    why: "Oils forced solid with hydrogen. Trans-fat territory, dressed as “vegetable oil.”",
+  },
+  {
+    id: "gluten-fillers",
+    label: "Gluten fillers",
+    kind: "junk",
+    icon: "wheat",
+    why: "Cheap wheat starch and protein used to bulk a bar and cut the cost of real food.",
+  },
   { id: "collagen", label: "Grass-fed collagen", kind: "real", icon: "bone" },
   { id: "whey", label: "Grass-fed whey", kind: "real", icon: "milk" },
   { id: "organic-beef", label: "Organic beef", kind: "real", icon: "beef" },

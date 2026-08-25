@@ -110,9 +110,18 @@ export function ResultsScreen({
             <PickRow key={option.id} option={option} />
           ))}
         </ul>
-        <p className="mt-3 text-xs uppercase tracking-ui text-subtle">
-          The junk on this board: {junkOnBoard.map((o) => o.label).join(" · ")}
-        </p>
+
+        <div className="mt-6 space-y-4">
+          <p className="text-xs uppercase tracking-ui text-subtle">Why the junk is junk</p>
+          {junkOnBoard.map((option) => (
+            <p key={option.id} className="max-w-md text-pretty text-sm leading-relaxed text-muted">
+              <span className="font-semibold uppercase tracking-wide text-cream">
+                {option.label}:
+              </span>{" "}
+              {option.why}
+            </p>
+          ))}
+        </div>
       </div>
 
       <form
