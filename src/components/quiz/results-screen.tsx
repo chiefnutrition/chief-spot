@@ -28,6 +28,7 @@ export function ResultsScreen({
   const copy = RESULT_COPY[resultKey(score)];
   const selected = optionsById(selectedIds);
   const junkOnBoard = optionsById(optionIds).filter((o) => o.kind === "junk");
+  const missedJunk = junkOnBoard.filter((o) => !selectedIds.includes(o.id));
 
   const [firstName, setFirstName] = useState("");
   const [email, setEmail] = useState("");
@@ -112,15 +113,22 @@ export function ResultsScreen({
         </ul>
 
         <div className="mt-6 space-y-4">
-          <p className="text-xs uppercase tracking-ui text-subtle">Why the junk is junk</p>
-          {junkOnBoard.map((option) => (
-            <p key={option.id} className="max-w-md text-pretty text-sm leading-relaxed text-muted">
-              <span className="font-semibold uppercase tracking-wide text-cream">
-                {option.label}:
-              </span>{" "}
-              {option.why}
-            </p>
-          ))}
+          {missedJunk.length > 0 ? (
+            <>
+              <p className="text-xs uppercase tracking-ui text-subtle">Missed junk</p>
+              {missedJunk.map((option) => (
+                <p
+                  key={option.id}
+                  className="max-w-md text-pretty text-sm leading-relaxed text-muted"
+                >
+                  <span className="font-semibold uppercase tracking-wide text-cream">
+                    {option.label}:
+                  </span>{" "}
+                  {option.why}
+                </p>
+              ))}
+            </>
+          ) : null}
         </div>
       </div>
 
@@ -199,20 +207,25 @@ function PickRow({ option }: { option: QuizOption }) {
   return (
     <li
       className={cn(
-        "flex items-center justify-between rounded-pill border px-4 py-2.5",
+        "rounded-2xl border px-4 py-3",
         hit ? "border-success/40 bg-success/10" : "border-danger/35 bg-danger/10",
       )}
     >
-      <span className="text-sm font-medium text-fg">{option.label}</span>
-      <span
-        className={cn(
-          "flex items-center gap-1 text-xs font-semibold uppercase tracking-wider",
-          hit ? "text-success" : "text-danger",
-        )}
-      >
-        {hit ? <Check className="size-3.5" /> : <X className="size-3.5" />}
-        {hit ? "Junk" : "In Chief"}
-      </span>
+      <div className="flex items-start justify-between gap-3">
+        <span className="text-sm font-medium text-fg">{option.label}</span>
+        <span
+          className={cn(
+            "flex shrink-0 items-center gap-1 text-xs font-semibold uppercase tracking-wider",
+            hit ? "text-success" : "text-danger",
+          )}
+        >
+          {hit ? <Check className="size-3.5" /> : <X className="size-3.5" />}
+          {hit ? "Junk" : "Not junk"}
+        </span>
+      </div>
+      {option.why ? (
+        <p className="mt-1.5 text-sm leading-relaxed text-muted">{option.why}</p>
+      ) : null}
     </li>
   );
 }
