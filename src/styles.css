@@ -30,7 +30,7 @@
   --color-ink: #1d1d1d;
   --color-brand: #009383;
   --color-brand-hover: #00756c;
-  --color-success: #43bbb7;
+  --color-success: #009383;
   --color-danger: #e45256;
   --color-border: color-mix(in oklab, var(--color-fg) 16%, transparent);
   --color-border-strong: color-mix(in oklab, var(--color-fg) 32%, transparent);
