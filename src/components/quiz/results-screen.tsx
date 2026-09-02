@@ -108,10 +108,10 @@ export function ResultsScreen({
     return (
       <div className="flex min-h-full flex-col items-center justify-center px-6 py-10 text-center">
         <ChiefMark />
-        <p className="mt-6 font-display text-sm uppercase tracking-kicker text-cream">
+        <p className="mt-6 font-callout text-score tracking-kicker text-cream">
           You're in
         </p>
-        <h2 className="mt-3 font-display text-hero font-semibold leading-display tracking-tight text-cream">
+        <h2 className="mt-3 font-display text-hero font-bold leading-display tracking-[-0.028em] text-cream">
           Prize
           <br />
           incoming.
@@ -123,7 +123,7 @@ export function ResultsScreen({
         <Button
           type="button"
           variant="outline"
-          className="mt-10 uppercase tracking-ui"
+          className="mt-10"
           onClick={onRestart}
         >
           Play again
@@ -145,7 +145,7 @@ export function ResultsScreen({
           onSubmit={onSubmit}
           className="order-1 flex scroll-mb-[calc(var(--keyboard-inset,0px)+1.5rem)] scroll-mt-6 flex-col gap-4 rounded-2xl border border-border bg-surface p-6 landscape:lg:order-2 sm:p-8"
         >
-          <p className="font-display text-lg font-semibold uppercase tracking-wide text-cream">
+          <p className="font-display text-xl font-bold tracking-[-0.018em] text-cream">
             Claim your prize
           </p>
           <div className="flex flex-col gap-1.5">
@@ -194,7 +194,7 @@ export function ResultsScreen({
           <Button
             type="submit"
             size="xl"
-            className="mt-1 w-full uppercase tracking-ui"
+            className="mt-1 w-full"
             disabled={pending || !firstName.trim() || !email.trim()}
           >
             {pending ? "Sending…" : "Get my prize"}
@@ -206,25 +206,23 @@ export function ResultsScreen({
           <button
             type="button"
             onClick={onRestart}
-            className="font-display text-sm text-muted underline decoration-from-font underline-offset-4 transition-colors hover:text-fg"
+            className="font-sans text-sm text-muted underline decoration-from-font underline-offset-4 transition-colors hover:text-fg"
           >
             Skip and play again
           </button>
         </form>
 
         <div className="order-2 landscape:lg:order-1">
-          <p className="font-display text-sm uppercase tracking-kicker text-cream tabular-nums">
+          <p className="font-callout text-score tracking-kicker text-cream tabular-nums">
             {copy.kicker}
           </p>
-          <h2 className="mt-2 font-display text-result font-semibold leading-display tracking-tight text-cream">
+          <h2 className="mt-2 font-display text-result font-bold leading-[1.08] tracking-[-0.022em] text-cream">
             {copy.title}
           </h2>
           <p className="mt-3 max-w-md text-pretty text-muted">{copy.body}</p>
           <p className="mt-4 max-w-md text-pretty text-sm text-cream">
-            <span className="font-display font-semibold tabular-nums">
-              {formatElapsed(elapsedMs)}
-            </span>
-            {" — "}
+            <span className="font-callout text-score tabular-nums">{formatElapsed(elapsedMs)}</span>
+            {". "}
             {speedLine(elapsedMs, score)}
           </p>
 
@@ -237,13 +235,13 @@ export function ResultsScreen({
           <div className="mt-5 space-y-3">
             {missedJunk.length > 0 ? (
               <>
-                <p className="text-xs uppercase tracking-ui text-subtle">Missed junk</p>
+                <p className="font-callout text-xs tracking-[0.18em] text-subtle">Missed junk</p>
                 {missedJunk.map((option) => (
                   <p
                     key={option.id}
                     className="max-w-md text-pretty text-sm leading-relaxed text-muted"
                   >
-                    <span className="font-semibold uppercase tracking-wide text-cream">
+                    <span className="font-semibold text-cream">
                       {option.label}:
                     </span>{" "}
                     {option.why}
@@ -268,10 +266,12 @@ function PickRow({ option }: { option: QuizOption }) {
       )}
     >
       <div className="flex items-start justify-between gap-3">
-        <span className="text-sm font-medium text-fg">{option.label}</span>
+        <span className="font-sans text-sm font-semibold tracking-normal text-fg">
+          {option.label}
+        </span>
         <span
           className={cn(
-            "flex shrink-0 items-center gap-1 text-xs font-semibold uppercase tracking-wider",
+            "flex shrink-0 items-center gap-1 font-callout text-badge tracking-[0.14em]",
             hit ? "text-success" : "text-danger",
           )}
         >

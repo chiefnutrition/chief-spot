@@ -53,7 +53,7 @@ export const RESULT_COPY: Record<
   all: {
     kicker: "3 of 3",
     title: "Clean sweep.",
-    body: "You spotted every bit of junk. That's Chief thinking — real food, no ultra-processed anything.",
+    body: "You spotted every bit of junk. That's Chief thinking. Real food, no ultra-processed anything.",
   },
   two: {
     kicker: "2 of 3",
@@ -63,12 +63,12 @@ export const RESULT_COPY: Record<
   one: {
     kicker: "1 of 3",
     title: "One for the real food.",
-    body: "You caught one. Flip more packs — the junk hides in plain sight.",
+    body: "You caught one. Flip more packs. The junk hides in plain sight.",
   },
   none: {
     kicker: "0 of 3",
     title: "The junk almost won.",
-    body: "No stress. That's why we exist — extraordinarily clean snacks, nothing to hide.",
+    body: "No stress. That's why we exist. Extraordinarily clean snacks, nothing to hide.",
   },
 };
 
@@ -110,7 +110,7 @@ const SPEED_LINES = {
 const MISS_LINES = {
   lightning: [
     "Slow down, legend. Speed isn't a food group.",
-    "Sheesh — hit the brakes. The junk is still in there.",
+    "Sheesh. Hit the brakes. The junk is still in there.",
     "Fast hands, fuzzy labels. Slow the flip.",
     "Easy. The pack isn't a race.",
   ],
@@ -122,7 +122,7 @@ const MISS_LINES = {
   ],
   steady: [
     "Close. Another second on the pack wouldn't hurt.",
-    "Slow it down next time — the junk hides in the middle.",
+    "Slow it down next time. The junk hides in the middle.",
     "You looked. Look once more.",
     "Not a sprint, not quite a win. Flip it slower.",
   ],

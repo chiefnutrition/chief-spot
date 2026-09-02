@@ -27,11 +27,13 @@ export function QuizBoard({
       <header className="flex shrink-0 items-end justify-between gap-3 px-1">
         <div>
           <ChiefMark className="h-6 sm:h-7" />
-          <h1 className="mt-4 max-w-xl font-display text-question font-semibold leading-tight tracking-tight text-cream sm:mt-5">
+          <h1 className="mt-4 max-w-xl font-display text-question font-bold leading-tight tracking-[-0.02em] text-cream sm:mt-5">
             {QUESTION}
           </h1>
         </div>
-        <p className="shrink-0 font-display text-sm uppercase tracking-ui text-cream tabular-nums">
+        <p className="shrink-0 font-callout text-score tracking-kicker text-cream tabular-nums">
+          {selectedIds.length}/3
+        </p>
           {selectedIds.length}/3
         </p>
       </header>
@@ -71,7 +73,13 @@ export function QuizBoard({
                 />
               )}
               <Icon className="size-5 text-brand sm:size-8" strokeWidth={1.75} />
-              <span className="font-display text-tile font-semibold uppercase leading-tight tracking-wide">
+              <span
+                className={cn(
+                  "font-sans font-semibold leading-tight tracking-normal tabular-nums",
+                  option.label.length > 24 ? "text-ingredient-long" : "text-ingredient",
+                )}
+                style={{ hyphens: "none", overflowWrap: "break-word" }}
+              >
                 {option.label}
               </span>
             </button>
@@ -84,13 +92,13 @@ export function QuizBoard({
           <Button
             type="button"
             size="xl"
-            className="w-full max-w-md uppercase tracking-ui"
+            className="w-full max-w-md"
             onClick={onSubmit}
           >
             Submit
           </Button>
         ) : (
-          <p className="text-sm uppercase tracking-ui text-subtle">
+          <p className="text-sm tracking-normal text-subtle">
             {remaining === 3
               ? "Tap three to lock in"
               : remaining === 1

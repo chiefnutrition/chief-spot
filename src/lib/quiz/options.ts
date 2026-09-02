@@ -151,7 +151,7 @@ export const QUIZ_OPTIONS: QuizOption[] = [
     label: "Pea protein isolate",
     kind: "junk",
     icon: "bean",
-    why: "Same isolate trick as soy — plant stripped, powdered, and sold as “protein.”",
+    why: "Same isolate trick as soy. Plant stripped, powdered, and sold as “protein.”",
   },
   {
     id: "soy-lecithin",
@@ -165,7 +165,7 @@ export const QUIZ_OPTIONS: QuizOption[] = [
     label: "Allulose",
     kind: "junk",
     icon: "test-tube",
-    why: "A trendy “rare sugar” made in a plant — the factory kind.",
+    why: "A trendy “rare sugar” made in a plant. The factory kind.",
   },
   {
     id: "modified-starch",
@@ -228,7 +228,7 @@ export const QUIZ_OPTIONS: QuizOption[] = [
     label: "Peanut butter",
     kind: "real",
     icon: "sandwich",
-    why: "Peanuts. That is the ingredient list we want — food, not filler.",
+    why: "Peanuts. That is the ingredient list we want. Food, not filler.",
   },
   {
     id: "sea-salt",

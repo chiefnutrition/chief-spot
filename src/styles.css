@@ -30,24 +30,29 @@
   --color-ink: #1d1d1d;
   --color-brand: #009383;
   --color-brand-hover: #00756c;
-  --color-success: #8aaa7a;
-  --color-danger: #d07a62;
+  --color-success: #43bbb7;
+  --color-danger: #e45256;
   --color-border: color-mix(in oklab, var(--color-fg) 16%, transparent);
   --color-border-strong: color-mix(in oklab, var(--color-fg) 32%, transparent);
 
   --font-sans: "Figtree", ui-sans-serif, system-ui, sans-serif;
-  --font-display: "Avant Garde", "ITC Avant Garde Gothic", "Century Gothic", ui-sans-serif, sans-serif;
+  --font-display: "Avant Garde", "ITC Avant Garde Gothic", "Poppins", "Helvetica Neue", ui-sans-serif, sans-serif;
+  --font-callout: "Bebas Neue", "Oswald", "Arial Narrow", Impact, sans-serif;
 
-  --text-hero: clamp(3.2rem, 12vw, 7rem);
-  --text-result: clamp(2.2rem, 7vw, 3.6rem);
-  --text-question: clamp(1.35rem, 3.6vw, 2.35rem);
-  --text-tile: clamp(0.72rem, 2.1vw, 1.15rem);
+  --text-hero: clamp(2.75rem, 10vw, 4rem);
+  --text-result: clamp(1.875rem, 6vw, 2.75rem);
+  --text-question: clamp(1.25rem, 3.2vw, 2.125rem);
+  --text-ingredient: 1rem;
+  --text-ingredient-long: 0.875rem;
+  --text-score: 1.375rem;
+  --text-badge: 0.75rem;
 
   --tracking-brand: 0.42em;
-  --tracking-ui: 0.18em;
-  --tracking-kicker: 0.28em;
+  --tracking-ui: 0.01em;
+  --tracking-kicker: 0.2em;
+  --tracking-splash: -0.028em;
 
-  --leading-display: 0.88;
+  --leading-display: 0.98;
 
   --radius-xs: 4px;
   --radius-sm: 8px;

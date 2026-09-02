@@ -18,7 +18,7 @@ export function AttractScreen({
       <GhostGrid />
       <div className="relative z-10 flex w-full max-w-xl flex-col items-center text-center">
         <ChiefMark className="mb-10 h-7 sm:h-8" />
-        <h1 className="font-display text-hero font-semibold leading-display tracking-tight text-cream">
+        <h1 className="font-display text-hero font-bold leading-display tracking-[-0.028em] text-cream">
           Spot the
           <br />
           junk.
@@ -29,7 +29,7 @@ export function AttractScreen({
         <Button
           type="button"
           size="xl"
-          className="mt-10 min-w-60 uppercase tracking-ui"
+          className="mt-10 min-w-60"
           onClick={onPlay}
         >
           Play
