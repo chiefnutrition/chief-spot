@@ -12,7 +12,15 @@
 @font-face {
   font-family: "Avant Garde";
   src: url("./assets/fonts/URWGothic-Demi.otf") format("opentype");
-  font-weight: 500 700;
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Avant Garde";
+  src: url("./assets/fonts/URWGothic-Demi.otf") format("opentype");
+  font-weight: 700;
   font-style: normal;
   font-display: swap;
 }
