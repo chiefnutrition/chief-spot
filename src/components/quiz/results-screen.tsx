@@ -134,121 +134,126 @@ export function ResultsScreen({
 
   return (
     <div
-      className="mx-auto flex w-full max-w-6xl flex-col gap-6 px-5 py-6 landscape:lg:grid landscape:lg:min-h-full landscape:lg:grid-cols-2 landscape:lg:items-center landscape:lg:gap-12 landscape:lg:px-10"
+      className="mx-auto flex w-full max-w-6xl flex-col gap-6 px-5 py-6 landscape:lg:gap-8 landscape:lg:px-10"
       style={{ paddingBottom: "calc(1.5rem + var(--keyboard-inset, 0px))" }}
     >
-      <div>
-        <ChiefMark className="h-7 sm:h-8" />
-        <p className="mt-5 font-display text-sm uppercase tracking-kicker text-cream tabular-nums sm:mt-8">
-          {copy.kicker}
-        </p>
-        <h2 className="mt-2 font-display text-result font-semibold leading-display tracking-tight text-cream">
-          {copy.title}
-        </h2>
-        <p className="mt-3 max-w-md text-pretty text-muted">{copy.body}</p>
-        <p className="mt-4 max-w-md text-pretty text-sm text-cream">
-          <span className="font-display font-semibold tabular-nums">{formatElapsed(elapsedMs)}</span>
-          {" — "}
-          {speedLine(elapsedMs, score)}
-        </p>
+      <ChiefMark className="h-7 sm:h-8" />
 
-        <ul className="mt-5 space-y-2">
-          {selected.map((option) => (
-            <PickRow key={option.id} option={option} />
-          ))}
-        </ul>
+      <div className="flex flex-col gap-6 landscape:lg:grid landscape:lg:grid-cols-2 landscape:lg:items-start landscape:lg:gap-12">
+        <form
+          ref={formRef}
+          onSubmit={onSubmit}
+          className="order-1 flex scroll-mb-[calc(var(--keyboard-inset,0px)+1.5rem)] scroll-mt-6 flex-col gap-4 rounded-2xl border border-border bg-surface p-6 landscape:lg:order-2 sm:p-8"
+        >
+          <p className="font-display text-lg font-semibold uppercase tracking-wide text-cream">
+            Claim your prize
+          </p>
+          <div className="flex flex-col gap-1.5">
+            <Label htmlFor="firstName">First name</Label>
+            <Input
+              id="firstName"
+              name="firstName"
+              autoComplete="given-name"
+              required
+              maxLength={80}
+              value={firstName}
+              onChange={(e) => setFirstName(e.target.value)}
+              onFocus={(e) => scrollFieldIntoView(e.currentTarget)}
+              placeholder="Sam"
+              className="scroll-mb-[calc(var(--keyboard-inset,0px)+2rem)]"
+            />
+          </div>
+          <div className="flex flex-col gap-1.5">
+            <Label htmlFor="email">Email</Label>
+            <Input
+              id="email"
+              name="email"
+              type="email"
+              autoComplete="email"
+              inputMode="email"
+              required
+              maxLength={200}
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              onFocus={(e) => scrollFieldIntoView(e.currentTarget)}
+              placeholder="you@email.com"
+              className="scroll-mb-[calc(var(--keyboard-inset,0px)+2rem)]"
+            />
+          </div>
+          <div className="absolute -left-[9999px] h-0 w-0 overflow-hidden" aria-hidden="true">
+            <label htmlFor="website">Website</label>
+            <input
+              id="website"
+              name="website"
+              tabIndex={-1}
+              autoComplete="off"
+              value={website}
+              onChange={(e) => setWebsite(e.target.value)}
+            />
+          </div>
+          <Button
+            type="submit"
+            size="xl"
+            className="mt-1 w-full uppercase tracking-ui"
+            disabled={pending || !firstName.trim() || !email.trim()}
+          >
+            {pending ? "Sending…" : "Get my prize"}
+          </Button>
+          <p className="text-center text-xs leading-relaxed text-subtle">
+            By submitting you agree to hear from Chief. Unsubscribe any time. Your
+            prize email is on the way after you join the list.
+          </p>
+          <button
+            type="button"
+            onClick={onRestart}
+            className="font-display text-sm text-muted underline decoration-from-font underline-offset-4 transition-colors hover:text-fg"
+          >
+            Skip and play again
+          </button>
+        </form>
 
-        <div className="mt-5 space-y-3">
-          {missedJunk.length > 0 ? (
-            <>
-              <p className="text-xs uppercase tracking-ui text-subtle">Missed junk</p>
-              {missedJunk.map((option) => (
-                <p
-                  key={option.id}
-                  className="max-w-md text-pretty text-sm leading-relaxed text-muted"
-                >
-                  <span className="font-semibold uppercase tracking-wide text-cream">
-                    {option.label}:
-                  </span>{" "}
-                  {option.why}
-                </p>
-              ))}
-            </>
-          ) : null}
+        <div className="order-2 landscape:lg:order-1">
+          <p className="font-display text-sm uppercase tracking-kicker text-cream tabular-nums">
+            {copy.kicker}
+          </p>
+          <h2 className="mt-2 font-display text-result font-semibold leading-display tracking-tight text-cream">
+            {copy.title}
+          </h2>
+          <p className="mt-3 max-w-md text-pretty text-muted">{copy.body}</p>
+          <p className="mt-4 max-w-md text-pretty text-sm text-cream">
+            <span className="font-display font-semibold tabular-nums">
+              {formatElapsed(elapsedMs)}
+            </span>
+            {" — "}
+            {speedLine(elapsedMs, score)}
+          </p>
+
+          <ul className="mt-5 space-y-2">
+            {selected.map((option) => (
+              <PickRow key={option.id} option={option} />
+            ))}
+          </ul>
+
+          <div className="mt-5 space-y-3">
+            {missedJunk.length > 0 ? (
+              <>
+                <p className="text-xs uppercase tracking-ui text-subtle">Missed junk</p>
+                {missedJunk.map((option) => (
+                  <p
+                    key={option.id}
+                    className="max-w-md text-pretty text-sm leading-relaxed text-muted"
+                  >
+                    <span className="font-semibold uppercase tracking-wide text-cream">
+                      {option.label}:
+                    </span>{" "}
+                    {option.why}
+                  </p>
+                ))}
+              </>
+            ) : null}
+          </div>
         </div>
       </div>
-
-      <form
-        ref={formRef}
-        onSubmit={onSubmit}
-        className="flex scroll-mb-[calc(var(--keyboard-inset,0px)+1.5rem)] scroll-mt-6 flex-col gap-4 rounded-2xl border border-border bg-surface p-6 sm:p-8"
-      >
-        <p className="font-display text-lg font-semibold uppercase tracking-wide text-cream">
-          Claim your prize
-        </p>
-        <div className="flex flex-col gap-1.5">
-          <Label htmlFor="firstName">First name</Label>
-          <Input
-            id="firstName"
-            name="firstName"
-            autoComplete="given-name"
-            required
-            maxLength={80}
-            value={firstName}
-            onChange={(e) => setFirstName(e.target.value)}
-            onFocus={(e) => scrollFieldIntoView(e.currentTarget)}
-            placeholder="Sam"
-            className="scroll-mb-[calc(var(--keyboard-inset,0px)+2rem)]"
-          />
-        </div>
-        <div className="flex flex-col gap-1.5">
-          <Label htmlFor="email">Email</Label>
-          <Input
-            id="email"
-            name="email"
-            type="email"
-            autoComplete="email"
-            inputMode="email"
-            required
-            maxLength={200}
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            onFocus={(e) => scrollFieldIntoView(e.currentTarget)}
-            placeholder="you@email.com"
-            className="scroll-mb-[calc(var(--keyboard-inset,0px)+2rem)]"
-          />
-        </div>
-        <div className="absolute -left-[9999px] h-0 w-0 overflow-hidden" aria-hidden="true">
-          <label htmlFor="website">Website</label>
-          <input
-            id="website"
-            name="website"
-            tabIndex={-1}
-            autoComplete="off"
-            value={website}
-            onChange={(e) => setWebsite(e.target.value)}
-          />
-        </div>
-        <Button
-          type="submit"
-          size="xl"
-          className="mt-1 w-full uppercase tracking-ui"
-          disabled={pending || !firstName.trim() || !email.trim()}
-        >
-          {pending ? "Sending…" : "Get my prize"}
-        </Button>
-        <p className="text-center text-xs leading-relaxed text-subtle">
-          By submitting you agree to hear from Chief. Unsubscribe any time. Your
-          prize email is on the way after you join the list.
-        </p>
-        <button
-          type="button"
-          onClick={onRestart}
-          className="font-display text-sm text-muted underline decoration-from-font underline-offset-4 transition-colors hover:text-fg"
-        >
-          Skip and play again
-        </button>
-      </form>
     </div>
   );
 }
