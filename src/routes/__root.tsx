@@ -4,7 +4,7 @@ import { PreviewHostBridge } from "@/components/preview-host-bridge";
 import { Toaster } from "sonner";
 import appCss from "../styles.css?url";
 import bookFont from "@/assets/fonts/URWGothic-Book.otf?url";
-import demiFont from "@/assets/fonts/URWGothic-Demi.otf?url";
+import avantBold from "@/assets/fonts/ITCAvantGardeStdBold.otf?url";
 
 const APP_NAME = "Spot the Junk";
 
@@ -23,8 +23,8 @@ export const Route = createRootRoute({
     links: [
       { rel: "icon", type: "image/png", href: "/favicon.png" },
       { rel: "icon", type: "image/x-icon", href: "/favicon.ico" },
+      { rel: "preload", href: avantBold, as: "font", type: "font/otf", crossOrigin: "anonymous" },
       { rel: "preload", href: bookFont, as: "font", type: "font/otf", crossOrigin: "anonymous" },
-      { rel: "preload", href: demiFont, as: "font", type: "font/otf", crossOrigin: "anonymous" },
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
       {

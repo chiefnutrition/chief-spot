@@ -2,6 +2,14 @@
 @import "tw-animate-css";
 
 @font-face {
+  font-family: "ITC Avant Garde Gothic";
+  src: url("./assets/fonts/ITCAvantGardeStdBold.otf") format("opentype");
+  font-weight: 500 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
   font-family: "Avant Garde";
   src: url("./assets/fonts/URWGothic-Book.otf") format("opentype");
   font-weight: 400;
@@ -11,16 +19,8 @@
 
 @font-face {
   font-family: "Avant Garde";
-  src: url("./assets/fonts/URWGothic-Demi.otf") format("opentype");
-  font-weight: 600;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Avant Garde";
-  src: url("./assets/fonts/URWGothic-Demi.otf") format("opentype");
-  font-weight: 700;
+  src: url("./assets/fonts/ITCAvantGardeStdBold.otf") format("opentype");
+  font-weight: 500 800;
   font-style: normal;
   font-display: swap;
 }
@@ -44,7 +44,7 @@
   --color-border-strong: color-mix(in oklab, var(--color-fg) 32%, transparent);
 
   --font-sans: "Figtree", ui-sans-serif, system-ui, sans-serif;
-  --font-display: "Avant Garde", "ITC Avant Garde Gothic", "Poppins", "Helvetica Neue", ui-sans-serif, sans-serif;
+  --font-display: "ITC Avant Garde Gothic", "Avant Garde", "Poppins", "Helvetica Neue", ui-sans-serif, sans-serif;
   --font-callout: "Bebas Neue", "Oswald", "Arial Narrow", Impact, sans-serif;
 
   --text-hero: clamp(2.75rem, 10vw, 4rem);
@@ -106,6 +106,7 @@
   h3 {
     text-wrap: balance;
     font-family: var(--font-display);
+    font-weight: 700;
   }
 
   p {
@@ -115,8 +116,6 @@
 
 .splash-headline {
   font-weight: 700;
-  -webkit-text-stroke: 0.04em currentColor;
-  paint-order: stroke fill;
 }
 
 .flip-stage {
