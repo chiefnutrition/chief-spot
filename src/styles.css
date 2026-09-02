@@ -40,6 +40,7 @@
   --font-callout: "Bebas Neue", "Oswald", "Arial Narrow", Impact, sans-serif;
 
   --text-hero: clamp(2.75rem, 10vw, 4rem);
+  --text-splash: clamp(3.6rem, 13vw, 7.5rem);
   --text-result: clamp(1.875rem, 6vw, 2.75rem);
   --text-question: clamp(1.25rem, 3.2vw, 2.125rem);
   --text-ingredient: 1rem;
