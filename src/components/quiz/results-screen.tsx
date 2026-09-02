@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Check, X } from "lucide-react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
@@ -11,6 +11,39 @@ import { optionsById, RESULT_COPY, resultKey, formatElapsed, speedLine } from "@
 import type { QuizOption } from "@/lib/quiz/options";
 import { cn } from "@/lib/utils";
 import { ChiefMark } from "./chief-mark";
+
+function useKeyboardInset() {
+  useEffect(() => {
+    const root = document.documentElement;
+    const sync = () => {
+      const vv = window.visualViewport;
+      if (!vv) {
+        root.style.setProperty("--keyboard-inset", "0px");
+        return;
+      }
+      const inset = Math.max(0, window.innerHeight - vv.height - vv.offsetTop);
+      root.style.setProperty("--keyboard-inset", `${Math.round(inset)}px`);
+    };
+    sync();
+    window.visualViewport?.addEventListener("resize", sync);
+    window.visualViewport?.addEventListener("scroll", sync);
+    window.addEventListener("resize", sync);
+    return () => {
+      window.visualViewport?.removeEventListener("resize", sync);
+      window.visualViewport?.removeEventListener("scroll", sync);
+      window.removeEventListener("resize", sync);
+      root.style.setProperty("--keyboard-inset", "0px");
+    };
+  }, []);
+}
+
+function scrollFieldIntoView(el: HTMLElement) {
+  const reveal = () => {
+    el.scrollIntoView({ block: "center", inline: "nearest", behavior: "smooth" });
+  };
+  requestAnimationFrame(reveal);
+  window.setTimeout(reveal, 320);
+}
 
 export function ResultsScreen({
   score,
@@ -37,6 +70,9 @@ export function ResultsScreen({
   const [website, setWebsite] = useState("");
   const [pending, setPending] = useState(false);
   const [done, setDone] = useState(false);
+  const formRef = useRef<HTMLFormElement>(null);
+
+  useKeyboardInset();
 
   useEffect(() => {
     if (!done) return;
@@ -70,7 +106,7 @@ export function ResultsScreen({
 
   if (done) {
     return (
-      <div className="flex min-h-dvh flex-col items-center justify-center px-6 py-10 text-center">
+      <div className="flex min-h-full flex-col items-center justify-center px-6 py-10 text-center">
         <ChiefMark />
         <p className="mt-6 font-display text-sm uppercase tracking-kicker text-cream">
           You're in
@@ -97,10 +133,13 @@ export function ResultsScreen({
   }
 
   return (
-    <div className="mx-auto grid min-h-dvh w-full max-w-6xl items-center gap-8 px-5 py-6 lg:grid-cols-2 lg:gap-16 lg:px-10">
+    <div
+      className="mx-auto flex w-full max-w-6xl flex-col gap-6 px-5 py-6 landscape:lg:grid landscape:lg:min-h-full landscape:lg:grid-cols-2 landscape:lg:items-center landscape:lg:gap-12 landscape:lg:px-10"
+      style={{ paddingBottom: "calc(1.5rem + var(--keyboard-inset, 0px))" }}
+    >
       <div>
         <ChiefMark className="h-7 sm:h-8" />
-        <p className="mt-8 font-display text-sm uppercase tracking-kicker text-cream tabular-nums">
+        <p className="mt-5 font-display text-sm uppercase tracking-kicker text-cream tabular-nums sm:mt-8">
           {copy.kicker}
         </p>
         <h2 className="mt-2 font-display text-result font-semibold leading-display tracking-tight text-cream">
@@ -113,13 +152,13 @@ export function ResultsScreen({
           {speedLine(elapsedMs, score)}
         </p>
 
-        <ul className="mt-6 space-y-2">
+        <ul className="mt-5 space-y-2">
           {selected.map((option) => (
             <PickRow key={option.id} option={option} />
           ))}
         </ul>
 
-        <div className="mt-6 space-y-4">
+        <div className="mt-5 space-y-3">
           {missedJunk.length > 0 ? (
             <>
               <p className="text-xs uppercase tracking-ui text-subtle">Missed junk</p>
@@ -140,8 +179,9 @@ export function ResultsScreen({
       </div>
 
       <form
+        ref={formRef}
         onSubmit={onSubmit}
-        className="flex flex-col gap-4 rounded-2xl border border-border bg-surface p-6 sm:p-8"
+        className="flex scroll-mb-[calc(var(--keyboard-inset,0px)+1.5rem)] scroll-mt-6 flex-col gap-4 rounded-2xl border border-border bg-surface p-6 sm:p-8"
       >
         <p className="font-display text-lg font-semibold uppercase tracking-wide text-cream">
           Claim your prize
@@ -156,7 +196,9 @@ export function ResultsScreen({
             maxLength={80}
             value={firstName}
             onChange={(e) => setFirstName(e.target.value)}
+            onFocus={(e) => scrollFieldIntoView(e.currentTarget)}
             placeholder="Sam"
+            className="scroll-mb-[calc(var(--keyboard-inset,0px)+2rem)]"
           />
         </div>
         <div className="flex flex-col gap-1.5">
@@ -171,7 +213,9 @@ export function ResultsScreen({
             maxLength={200}
             value={email}
             onChange={(e) => setEmail(e.target.value)}
+            onFocus={(e) => scrollFieldIntoView(e.currentTarget)}
             placeholder="you@email.com"
+            className="scroll-mb-[calc(var(--keyboard-inset,0px)+2rem)]"
           />
         </div>
         <div className="absolute -left-[9999px] h-0 w-0 overflow-hidden" aria-hidden="true">

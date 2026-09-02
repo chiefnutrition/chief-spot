@@ -168,13 +168,6 @@ export const QUIZ_OPTIONS: QuizOption[] = [
     why: "A trendy “rare sugar” made in a plant — the factory kind.",
   },
   {
-    id: "prebiotic-fibre",
-    label: "Prebiotic fibre",
-    kind: "junk",
-    icon: "wheat",
-    why: "Marketed as gut-friendly fibre. Often IMO — functionally a syrup.",
-  },
-  {
     id: "modified-starch",
     label: "Modified starch",
     kind: "junk",
