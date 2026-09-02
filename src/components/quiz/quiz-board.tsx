@@ -70,10 +70,7 @@ export function QuizBoard({
                   strokeWidth={2.5}
                 />
               )}
-              <Icon
-                className={cn("size-5 sm:size-8", selected ? "text-ink" : "text-cream")}
-                strokeWidth={1.75}
-              />
+              <Icon className="size-5 text-brand sm:size-8" strokeWidth={1.75} />
               <span className="font-display text-tile font-semibold uppercase leading-tight tracking-wide">
                 {option.label}
               </span>

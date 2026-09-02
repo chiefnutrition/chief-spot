@@ -24,10 +24,12 @@
   --color-fg: #f5f2ec;
   --color-muted: color-mix(in oklab, #f5f2ec 68%, #1d1d1d);
   --color-subtle: color-mix(in oklab, #f5f2ec 42%, #1d1d1d);
-  --color-accent: #f5f2ec;
-  --color-accent-fg: #1d1d1d;
+  --color-accent: #009383;
+  --color-accent-fg: #f5f2ec;
   --color-cream: #f5f2ec;
   --color-ink: #1d1d1d;
+  --color-brand: #009383;
+  --color-brand-hover: #00756c;
   --color-success: #8aaa7a;
   --color-danger: #d07a62;
   --color-border: color-mix(in oklab, var(--color-fg) 16%, transparent);
