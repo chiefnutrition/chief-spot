@@ -18,7 +18,7 @@ export function AttractScreen({
       <GhostGrid />
       <div className="relative z-10 flex w-full max-w-4xl flex-col items-center text-center">
         <ChiefMark className="mb-16 h-7 sm:mb-20 sm:h-8" />
-        <h1 className="font-display text-splash font-[700] leading-display tracking-[-0.028em] text-cream">
+        <h1 className="splash-headline font-display text-splash leading-display tracking-[-0.028em] text-cream">
           Spot the
           <br />
           junk.

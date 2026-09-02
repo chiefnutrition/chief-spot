@@ -113,6 +113,12 @@
   }
 }
 
+.splash-headline {
+  font-weight: 700;
+  -webkit-text-stroke: 0.04em currentColor;
+  paint-order: stroke fill;
+}
+
 .flip-stage {
   perspective: 1800px;
   width: 100%;
