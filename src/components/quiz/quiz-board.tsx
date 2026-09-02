@@ -34,8 +34,6 @@ export function QuizBoard({
         <p className="shrink-0 font-callout text-score tracking-kicker text-cream tabular-nums">
           {selectedIds.length}/3
         </p>
-          {selectedIds.length}/3
-        </p>
       </header>
 
       <div className="mt-3 grid min-h-0 flex-1 grid-cols-3 grid-rows-3 gap-2 sm:mt-4 sm:gap-3">
