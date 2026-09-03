@@ -225,9 +225,9 @@ export function ResultsScreen({
           </button>
         </form>
 
-        <div className="order-2 landscape:lg:order-1">
+        <div className="order-2 rounded-2xl border border-border bg-surface p-6 landscape:lg:order-1 sm:p-8">
           <p className="font-callout text-score tracking-kicker text-cream tabular-nums">
-            {copy.kicker}
+            Your results: {copy.kicker}
           </p>
           <h2 className="mt-2 font-display text-result font-bold leading-[1.08] tracking-[-0.022em] text-cream">
             {copy.title}
