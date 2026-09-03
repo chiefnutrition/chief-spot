@@ -118,6 +118,91 @@
   font-weight: 700;
 }
 
+.splash-line,
+.splash-junk,
+.splash-sub {
+  display: inline-block;
+}
+
+.splash-line {
+  animation: splash-in 0.8s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.splash-junk {
+  color: var(--color-cream);
+  transform-origin: center;
+  animation:
+    splash-junk-in 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.18s both,
+    splash-junk-pulse 3.2s ease-in-out 1.4s infinite;
+}
+
+.splash-sub {
+  animation: splash-in 0.8s cubic-bezier(0.22, 1, 0.36, 1) 0.45s both;
+}
+
+.attract-play {
+  animation: attract-play 3.2s ease-in-out 1.8s infinite;
+}
+
+@keyframes splash-in {
+  from {
+    opacity: 0;
+    transform: translateY(0.28em);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes splash-junk-in {
+  0% {
+    opacity: 0;
+    transform: scale(0.72);
+  }
+  58% {
+    opacity: 1;
+    transform: scale(1.1);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes splash-junk-pulse {
+  0%,
+  62%,
+  100% {
+    transform: scale(1);
+    color: var(--color-cream);
+    text-shadow: none;
+  }
+  72% {
+    transform: scale(1.07);
+    color: var(--color-cream);
+    text-shadow:
+      0 0 28px color-mix(in oklab, var(--color-brand) 80%, transparent),
+      0 0 8px var(--color-brand);
+  }
+  80% {
+    transform: scale(1.03);
+    color: var(--color-brand);
+    text-shadow: 0 0 18px color-mix(in oklab, var(--color-brand) 55%, transparent);
+  }
+}
+
+@keyframes attract-play {
+  0%,
+  62%,
+  100% {
+    transform: scale(1);
+  }
+  72% {
+    transform: scale(1.045);
+  }
+}
+
 .flip-stage {
   perspective: 1800px;
   width: 100%;
@@ -160,6 +245,16 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .splash-line,
+  .splash-junk,
+  .splash-sub,
+  .attract-play {
+    animation: none !important;
+    transform: none !important;
+    text-shadow: none !important;
+    color: inherit;
+  }
+
   .flip-card {
     transition: opacity 250ms ease;
     transform: none !important;
