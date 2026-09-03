@@ -14,22 +14,22 @@ export function AttractScreen({
   embed: boolean;
 }) {
   return (
-    <main className="relative flex min-h-dvh flex-col items-center justify-center overflow-hidden px-5 py-10">
+    <main className="relative flex min-h-dvh flex-col items-center justify-center overflow-hidden px-6 py-10 sm:px-10">
       <GhostGrid />
-      <div className="relative z-10 flex w-full max-w-4xl flex-col items-center text-center">
-        <ChiefMark className="mb-16 h-7 sm:mb-20 sm:h-8" />
+      <div className="relative z-10 flex w-full max-w-5xl flex-col items-center text-center">
+        <ChiefMark className="mb-12 h-10 sm:mb-16 sm:h-14" />
         <h1 className="splash-headline font-display text-splash leading-display tracking-[-0.028em] text-cream">
           <span className="splash-line">Spot the</span>
           <br />
           <span className="splash-junk">junk.</span>
         </h1>
-        <p className="splash-sub mt-6 max-w-md text-pretty text-base text-muted sm:text-lg">
+        <p className="splash-sub mt-8 max-w-2xl text-pretty text-lg text-muted sm:text-2xl">
           Nine ingredients. Spot the junk, win a prize!
         </p>
         <Button
           type="button"
           size="xl"
-          className="attract-play mt-10 min-w-60"
+          className="attract-play mt-12"
           onClick={onPlay}
         >
           Play

@@ -48,7 +48,7 @@
   --font-callout: "Bebas Neue", "Oswald", "Arial Narrow", Impact, sans-serif;
 
   --text-hero: clamp(2.75rem, 10vw, 4rem);
-  --text-splash: clamp(3.6rem, 13vw, 7.5rem);
+  --text-splash: clamp(4.4rem, 18vmin, 9.5rem);
   --text-result: clamp(1.875rem, 6vw, 2.75rem);
   --text-question: clamp(1.25rem, 3.2vw, 2.125rem);
   --text-ingredient: 1rem;
@@ -141,7 +141,49 @@
 }
 
 .attract-play {
-  animation: attract-play 3.2s ease-in-out 1.8s infinite;
+  position: relative;
+  z-index: 1;
+  min-width: min(22rem, 86vw);
+  height: 5.25rem;
+  padding-inline: 2.75rem;
+  font-size: clamp(1.65rem, 4.4vmin, 2.35rem);
+  letter-spacing: 0.14em;
+  animation: attract-play 1.7s ease-in-out 0.8s infinite;
+}
+
+.attract-play::after {
+  content: "";
+  position: absolute;
+  inset: -10px;
+  border-radius: inherit;
+  border: 2px solid var(--color-brand);
+  pointer-events: none;
+  animation: attract-ring 1.7s ease-out 0.8s infinite;
+}
+
+@keyframes attract-play {
+  0%,
+  100% {
+    transform: scale(1);
+    box-shadow: 0 8px 24px color-mix(in oklab, var(--color-brand) 18%, transparent);
+  }
+  50% {
+    transform: scale(1.1);
+    box-shadow:
+      0 0 0 12px color-mix(in oklab, var(--color-brand) 30%, transparent),
+      0 18px 48px color-mix(in oklab, var(--color-brand) 45%, transparent);
+  }
+}
+
+@keyframes attract-ring {
+  0% {
+    opacity: 0.65;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1.22);
+  }
 }
 
 @keyframes splash-in {
@@ -179,16 +221,16 @@
     text-shadow: none;
   }
   72% {
-    transform: scale(1.07);
+    transform: scale(1.1);
     color: var(--color-cream);
     text-shadow:
-      0 0 28px color-mix(in oklab, var(--color-brand) 80%, transparent),
-      0 0 8px var(--color-brand);
+      0 0 36px color-mix(in oklab, var(--color-brand) 80%, transparent),
+      0 0 10px var(--color-brand);
   }
   80% {
-    transform: scale(1.03);
+    transform: scale(1.04);
     color: var(--color-brand);
-    text-shadow: 0 0 18px color-mix(in oklab, var(--color-brand) 55%, transparent);
+    text-shadow: 0 0 22px color-mix(in oklab, var(--color-brand) 55%, transparent);
   }
 }
 
@@ -277,6 +319,7 @@
   .splash-junk,
   .splash-sub,
   .attract-play,
+  .attract-play::after,
   .prize-form-nudge {
     animation: none !important;
     transform: none !important;
