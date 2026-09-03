@@ -70,6 +70,7 @@ export function ResultsScreen({
   const [website, setWebsite] = useState("");
   const [pending, setPending] = useState(false);
   const [done, setDone] = useState(false);
+  const [nudging, setNudging] = useState(true);
   const formRef = useRef<HTMLFormElement>(null);
 
   useKeyboardInset();
@@ -102,6 +103,15 @@ export function ResultsScreen({
     } finally {
       setPending(false);
     }
+  }
+
+  function hushForm() {
+    setNudging(false);
+  }
+
+  function onFieldFocus(e: React.FocusEvent<HTMLInputElement>) {
+    hushForm();
+    scrollFieldIntoView(e.currentTarget);
   }
 
   if (done) {
@@ -143,7 +153,10 @@ export function ResultsScreen({
         <form
           ref={formRef}
           onSubmit={onSubmit}
-          className="order-1 flex scroll-mb-[calc(var(--keyboard-inset,0px)+1.5rem)] scroll-mt-6 flex-col gap-4 rounded-2xl border border-border bg-surface p-6 landscape:lg:order-2 sm:p-8"
+          className={cn(
+            "order-1 flex scroll-mb-[calc(var(--keyboard-inset,0px)+1.5rem)] scroll-mt-6 flex-col gap-4 rounded-2xl border border-border bg-surface p-6 landscape:lg:order-2 sm:p-8",
+            nudging && "prize-form-nudge",
+          )}
         >
           <p className="font-display text-xl font-bold tracking-[-0.018em] text-cream">
             Claim your prize
@@ -158,7 +171,7 @@ export function ResultsScreen({
               maxLength={80}
               value={firstName}
               onChange={(e) => setFirstName(e.target.value)}
-              onFocus={(e) => scrollFieldIntoView(e.currentTarget)}
+              onFocus={onFieldFocus}
               placeholder="Sam"
               className="scroll-mb-[calc(var(--keyboard-inset,0px)+2rem)]"
             />
@@ -175,7 +188,7 @@ export function ResultsScreen({
               maxLength={200}
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              onFocus={(e) => scrollFieldIntoView(e.currentTarget)}
+              onFocus={onFieldFocus}
               placeholder="you@email.com"
               className="scroll-mb-[calc(var(--keyboard-inset,0px)+2rem)]"
             />

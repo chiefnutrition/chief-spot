@@ -203,6 +203,40 @@
   }
 }
 
+.prize-form-nudge {
+  transform-origin: center;
+  animation: prize-nudge 2.6s ease-in-out 0.9s infinite;
+}
+
+@keyframes prize-nudge {
+  0%,
+  58%,
+  100% {
+    transform: rotate(0deg) scale(1);
+    border-color: var(--color-border);
+    box-shadow: none;
+  }
+  64% {
+    transform: rotate(-1.3deg) scale(1.02);
+    border-color: var(--color-brand);
+    box-shadow: 0 0 0 2px color-mix(in oklab, var(--color-brand) 45%, transparent),
+      0 12px 32px color-mix(in oklab, var(--color-brand) 22%, transparent);
+  }
+  70% {
+    transform: rotate(1.3deg) scale(1.025);
+    border-color: var(--color-brand);
+    box-shadow: 0 0 0 3px color-mix(in oklab, var(--color-brand) 55%, transparent),
+      0 12px 36px color-mix(in oklab, var(--color-brand) 28%, transparent);
+  }
+  76% {
+    transform: rotate(-0.8deg) scale(1.01);
+    border-color: var(--color-brand);
+  }
+  82% {
+    transform: rotate(0.4deg) scale(1.005);
+  }
+}
+
 .flip-stage {
   perspective: 1800px;
   width: 100%;
@@ -248,11 +282,13 @@
   .splash-line,
   .splash-junk,
   .splash-sub,
-  .attract-play {
+  .attract-play,
+  .prize-form-nudge {
     animation: none !important;
     transform: none !important;
     text-shadow: none !important;
     color: inherit;
+    box-shadow: none !important;
   }
 
   .flip-card {
