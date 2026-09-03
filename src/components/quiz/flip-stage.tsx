@@ -13,8 +13,20 @@ export function FlipStage({
   return (
     <div className="flip-stage">
       <div className={cn("flip-card", flipped && "is-flipped")}>
-        <div className="flip-face flip-face-front">{front}</div>
-        <div className="flip-face flip-face-back">{back}</div>
+        <div
+          className="flip-face flip-face-front"
+          aria-hidden={flipped}
+          inert={flipped || undefined}
+        >
+          {front}
+        </div>
+        <div
+          className="flip-face flip-face-back"
+          aria-hidden={!flipped}
+          inert={!flipped || undefined}
+        >
+          {back}
+        </div>
       </div>
     </div>
   );
