@@ -21,9 +21,7 @@ export function AttractScreen({
         <h1 className="splash-headline font-display text-splash leading-display tracking-[-0.028em] text-cream">
           <span className="splash-line">Can you</span>
           <br />
-          <span className="splash-line">spot the</span>
-          <br />
-          <span className="splash-junk">junk?</span>
+          <span className="splash-junk">spot the junk?</span>
         </h1>
         <p className="splash-sub mt-8 max-w-4xl font-display text-[clamp(1.5rem,5vmin,3rem)] font-bold leading-tight tracking-tight text-cream">
           Spot the junk, win a prize!

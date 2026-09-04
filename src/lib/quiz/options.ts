@@ -126,13 +126,6 @@ export const QUIZ_OPTIONS: QuizOption[] = [
     why: "Health-halo sugar. Still a syrup, still a spike, still not food.",
   },
   {
-    id: "natural-flavours",
-    label: "Natural flavours",
-    kind: "junk",
-    icon: "flower",
-    why: "Sounds like a vanilla bean. Usually a lab blend you can’t trace.",
-  },
-  {
     id: "erythritol",
     label: "Erythritol",
     kind: "junk",

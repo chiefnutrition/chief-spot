@@ -48,7 +48,7 @@
   --font-callout: "Bebas Neue", "Oswald", "Arial Narrow", Impact, sans-serif;
 
   --text-hero: clamp(2.75rem, 10vw, 4rem);
-  --text-splash: clamp(4.4rem, 18vmin, 9.5rem);
+  --text-splash: clamp(3.2rem, 12vmin, 6.4rem);
   --text-result: clamp(1.875rem, 6vw, 2.75rem);
   --text-question: clamp(1.25rem, 3.2vw, 2.125rem);
   --text-ingredient: 1rem;
@@ -131,6 +131,7 @@
 .splash-junk {
   color: var(--color-cream);
   transform-origin: center;
+  white-space: nowrap;
   animation:
     splash-junk-in 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.18s both,
     splash-junk-pulse 3.2s ease-in-out 1.4s infinite;
