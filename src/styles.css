@@ -114,8 +114,99 @@
   }
 }
 
-.splash-headline {
+.slot-headline {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.06em;
+  width: 100%;
   font-weight: 700;
+}
+
+.slot-row {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  gap: 0.012em;
+  line-height: 1;
+}
+
+.slot-row-prize {
+  color: var(--color-cream);
+}
+
+.slot-space {
+  display: inline-block;
+  width: 0.32em;
+}
+
+.slot-reel {
+  display: inline-block;
+  height: 1em;
+  overflow: hidden;
+  min-width: 0.62em;
+  text-align: center;
+}
+
+.slot-strip {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  will-change: transform, filter;
+  animation: slot-spin 0.88s cubic-bezier(0.12, 0.82, 0.18, 1) both;
+}
+
+.slot-glyph {
+  display: flex;
+  height: 1em;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+}
+
+.slot-headline.is-jackpot {
+  animation: slot-jackpot 1.8s ease-in-out infinite;
+}
+
+.slot-headline.is-jackpot .slot-row-prize {
+  color: var(--color-brand);
+}
+
+@keyframes slot-spin {
+  0% {
+    transform: translateY(0);
+    filter: blur(1.4px);
+  }
+  72% {
+    filter: blur(0.6px);
+  }
+  100% {
+    transform: translateY(calc(-1em * var(--slot-steps, 11)));
+    filter: blur(0);
+  }
+}
+
+@keyframes slot-jackpot {
+  0%,
+  100% {
+    transform: scale(1);
+    text-shadow: none;
+  }
+  40% {
+    transform: scale(1.045);
+    text-shadow:
+      0 0 22px color-mix(in oklab, var(--color-brand) 70%, transparent),
+      0 0 8px var(--color-brand);
+  }
+  55% {
+    transform: scale(1.08) rotate(-0.6deg);
+    text-shadow:
+      0 0 36px color-mix(in oklab, var(--color-brand) 85%, transparent),
+      0 0 12px var(--color-brand);
+  }
+  70% {
+    transform: scale(1.03) rotate(0.5deg);
+  }
 }
 
 .splash-line,
@@ -325,7 +416,9 @@
   .splash-sub,
   .attract-play,
   .attract-play::after,
-  .prize-form-nudge {
+  .prize-form-nudge,
+  .slot-strip,
+  .slot-headline.is-jackpot {
     animation: none !important;
     transform: none !important;
     text-shadow: none !important;
