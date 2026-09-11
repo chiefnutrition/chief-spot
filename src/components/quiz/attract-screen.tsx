@@ -26,7 +26,7 @@ export function AttractScreen({
           <br />
           <span className="splash-junk">instant prize!</span>
         </h1>
-        <p className="splash-sub mt-10 max-w-4xl font-display text-[clamp(1.35rem,4.4vmin,2.6rem)] font-bold leading-tight tracking-tight text-cream sm:mt-12">
+        <p className="splash-sub mt-10 max-w-4xl font-brand text-[clamp(1.35rem,4.4vmin,2.6rem)] font-bold leading-tight tracking-normal text-cream sm:mt-12">
           Test your knowledge, win a free product!
         </p>
         <Button
