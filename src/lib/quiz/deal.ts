@@ -165,11 +165,16 @@ export function speedBand(elapsedMs: number): SpeedBand {
 
 export function formatElapsed(elapsedMs: number): string {
   const seconds = Math.max(0, elapsedMs) / 1000;
-  if (seconds < 10) return `${seconds.toFixed(1)}s`;
-  if (seconds < 60) return `${Math.round(seconds)}s`;
+  if (seconds < 10) return `${seconds.toFixed(1)} seconds`;
+  if (seconds < 60) {
+    const rounded = Math.round(seconds);
+    return `${rounded} ${rounded === 1 ? "second" : "seconds"}`;
+  }
   const minutes = Math.floor(seconds / 60);
   const rest = Math.round(seconds % 60);
-  return `${minutes}m ${rest}s`;
+  const minuteLabel = minutes === 1 ? "minute" : "minutes";
+  const secondLabel = rest === 1 ? "second" : "seconds";
+  return `${minutes} ${minuteLabel} ${rest} ${secondLabel}`;
 }
 
 /** Perfect score keeps the speed praise. Any miss tells them to slow down. */
