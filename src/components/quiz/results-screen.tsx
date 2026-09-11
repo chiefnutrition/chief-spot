@@ -230,7 +230,7 @@ export function ResultsScreen({
             Your results: {copy.kicker}
           </p>
           <p className="mt-4 max-w-md text-pretty text-sm text-cream">
-            <span className="font-callout text-score tabular-nums">{formatElapsed(elapsedMs)}</span>
+            <span className="font-display text-score font-bold tabular-nums">{formatElapsed(elapsedMs)}</span>
             {". "}
             {speedLine(elapsedMs, score)}
           </p>
