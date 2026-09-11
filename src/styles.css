@@ -25,6 +25,22 @@
   font-display: swap;
 }
 
+@font-face {
+  font-family: "Proxima Nova";
+  src: url("./assets/fonts/ProximaNova-Regular.otf") format("opentype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Proxima Nova";
+  src: url("./assets/fonts/ProximaNova-Bold.otf") format("opentype");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
 @theme {
   --color-bg: #1d1d1d;
   --color-surface: color-mix(in oklab, #f5f2ec 6%, #1d1d1d);
@@ -46,6 +62,7 @@
   --font-sans: "Figtree", ui-sans-serif, system-ui, sans-serif;
   --font-display: "ITC Avant Garde Gothic", "Avant Garde", "Poppins", "Helvetica Neue", ui-sans-serif, sans-serif;
   --font-callout: "Bebas Neue", "Oswald", "Arial Narrow", Impact, sans-serif;
+  --font-brand: "Proxima Nova", "Figtree", ui-sans-serif, sans-serif;
 
   --text-hero: clamp(2.75rem, 10vw, 4rem);
   --text-splash: clamp(3.2rem, 12vmin, 6.4rem);

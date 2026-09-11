@@ -120,7 +120,7 @@ export function ResultsScreen({
     return (
       <div className="flex min-h-full flex-col items-center justify-center px-6 py-10 text-center">
         <ChiefMark />
-        <p className="mt-5 font-display text-base font-bold tracking-[0.06em] text-cream sm:text-xl">
+        <p className="mt-5 font-brand text-sm font-bold uppercase tracking-[0.2em] text-cream sm:text-base">
           Real feels better
         </p>
         <p className="mt-8 font-callout text-score tracking-kicker text-cream">
@@ -151,7 +151,7 @@ export function ResultsScreen({
     >
       <div>
         <ChiefMark className="h-7 sm:h-8" />
-        <p className="mt-3 font-display text-sm font-bold tracking-[0.06em] text-cream sm:text-base">
+        <p className="mt-3 font-brand text-xs font-bold uppercase tracking-[0.2em] text-cream sm:text-sm">
           Real feels better
         </p>
       </div>
@@ -168,7 +168,7 @@ export function ResultsScreen({
           <p className="font-display text-[clamp(1.7rem,5vw,3.2rem)] font-bold leading-[1.08] tracking-[-0.022em] text-cream">
             {copy.title}
           </p>
-          <p className="mt-4 font-display text-lg font-bold tracking-[0.04em] text-brand sm:text-xl">
+          <p className="mt-4 font-brand text-sm font-bold uppercase tracking-[0.2em] text-brand sm:text-base">
             Real feels better
           </p>
           <p className="mt-3 text-pretty text-base text-muted sm:text-lg">{copy.body}</p>

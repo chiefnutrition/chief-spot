@@ -5,6 +5,7 @@ import { Toaster } from "sonner";
 import appCss from "../styles.css?url";
 import bookFont from "@/assets/fonts/URWGothic-Book.otf?url";
 import avantBold from "@/assets/fonts/ITCAvantGardeStdBold.otf?url";
+import proximaBold from "@/assets/fonts/ProximaNova-Bold.otf?url";
 
 const APP_NAME = "Spot the Junk";
 
@@ -25,6 +26,7 @@ export const Route = createRootRoute({
       { rel: "icon", type: "image/x-icon", href: "/favicon.ico" },
       { rel: "preload", href: avantBold, as: "font", type: "font/otf", crossOrigin: "anonymous" },
       { rel: "preload", href: bookFont, as: "font", type: "font/otf", crossOrigin: "anonymous" },
+      { rel: "preload", href: proximaBold, as: "font", type: "font/otf", crossOrigin: "anonymous" },
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
       {
