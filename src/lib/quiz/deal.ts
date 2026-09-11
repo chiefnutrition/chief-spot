@@ -61,7 +61,7 @@ export const RESULT_COPY: Record<
   },
   two: {
     kicker: "2 of 3",
-    title: "So close. Real feels better, and you're still a winner!",
+    title: "So close. You're still a winner and remember, real feels better!",
     body: "Enter your details to receive 2 free gifts.",
     formTitle: "Claim your gifts",
     cta: "Get my gifts",
@@ -69,7 +69,7 @@ export const RESULT_COPY: Record<
   },
   one: {
     kicker: "1 of 3",
-    title: "You spotted one. Real feels better, and you're still a winner!",
+    title: "You spotted one. You're still a winner and remember, real feels better!",
     body: "Enter your details to receive 2 free gifts.",
     formTitle: "Claim your gifts",
     cta: "Get my gifts",
@@ -77,7 +77,7 @@ export const RESULT_COPY: Record<
   },
   none: {
     kicker: "0 of 3",
-    title: "Better luck next time. Real feels better, and you're still a winner!",
+    title: "Better luck next time. But, you're still a winner and remember, real feels better!",
     body: "Enter your details to receive 2 free gifts.",
     formTitle: "Claim your gifts",
     cta: "Get my gifts",
