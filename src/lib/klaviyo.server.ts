@@ -7,11 +7,12 @@ type SubscribeInput = {
 };
 
 const KLAVIYO_BASE = "https://a.klaviyo.com/api";
+const REVISIONS = ["2026-01-15", "2025-04-15", "2024-10-15"] as const;
 
 function credentials() {
   const apiKey = process.env.KLAVIYO_API_KEY?.trim();
   const listId = process.env.KLAVIYO_LIST_ID?.trim();
-  const revision = process.env.KLAVIYO_API_REVISION?.trim() || "2024-10-15";
+  const revision = process.env.KLAVIYO_API_REVISION?.trim() || REVISIONS[0];
   return { apiKey, listId, revision };
 }
 
@@ -24,7 +25,8 @@ async function klaviyoFetch(
   path: string,
   init: RequestInit & { apiKey: string; revision: string },
 ): Promise<{ ok: boolean; status: number; json: Record<string, unknown> | null; text: string }> {
-  const response = await fetch(`${KLAVIYO_BASE}${path}`, {
+  const url = `${KLAVIYO_BASE}${path.startsWith("/") ? path : `/${path}`}`;
+  const response = await fetch(url, {
     ...init,
     headers: {
       Authorization: `Klaviyo-API-Key ${init.apiKey}`,
@@ -52,6 +54,14 @@ function profileIdFrom(json: Record<string, unknown> | null): string | null {
   return typeof data?.id === "string" && data.id ? data.id : null;
 }
 
+function propertiesOf(input: SubscribeInput) {
+  return {
+    quiz_score: input.score,
+    quiz_source: input.source,
+    quiz_prize: input.prize,
+  };
+}
+
 async function upsertProfile(
   input: SubscribeInput,
   apiKey: string,
@@ -63,22 +73,18 @@ async function upsertProfile(
       attributes: {
         email: input.email,
         first_name: input.firstName,
-        properties: {
-          quiz_score: input.score,
-          quiz_source: input.source,
-          quiz_prize: input.prize,
-        },
+        properties: propertiesOf(input),
       },
     },
   };
-  let created = await klaviyoFetch("/profile-import/", {
+  let created = await klaviyoFetch("/profile-import", {
     method: "POST",
     apiKey,
     revision,
     body: JSON.stringify(payload),
   });
   if (!created.ok && (created.status === 404 || created.status === 405)) {
-    created = await klaviyoFetch("/profiles/", {
+    created = await klaviyoFetch("/profiles", {
       method: "POST",
       apiKey,
       revision,
@@ -105,7 +111,7 @@ async function addProfileToList(
   apiKey: string,
   revision: string,
 ): Promise<boolean> {
-  const result = await klaviyoFetch(`/lists/${encodeURIComponent(listId)}/relationships/profiles/`, {
+  const result = await klaviyoFetch(`/lists/${encodeURIComponent(listId)}/relationships/profiles`, {
     method: "POST",
     apiKey,
     revision,
@@ -123,7 +129,7 @@ async function subscribeEmail(
   revision: string,
 ): Promise<boolean> {
   const consentedAt = new Date().toISOString();
-  const result = await klaviyoFetch("/profile-subscription-bulk-create-jobs/", {
+  const result = await klaviyoFetch("/profile-subscription-bulk-create-jobs", {
     method: "POST",
     apiKey,
     revision,
@@ -140,10 +146,6 @@ async function subscribeEmail(
                 attributes: {
                   email: input.email,
                   first_name: input.firstName,
-                  properties: {
-                    quiz_score: input.score,
-                    quiz_source: input.source,
-                  },
                   subscriptions: {
                     email: {
                       marketing: {
@@ -168,20 +170,75 @@ async function subscribeEmail(
       },
     }),
   });
-  return result.ok;
+  return result.ok || result.status === 202 || result.status === 409;
+}
+
+async function trackPrizeEvent(
+  input: SubscribeInput,
+  apiKey: string,
+  revision: string,
+): Promise<boolean> {
+  const result = await klaviyoFetch("/events", {
+    method: "POST",
+    apiKey,
+    revision,
+    body: JSON.stringify({
+      data: {
+        type: "event",
+        attributes: {
+          properties: propertiesOf(input),
+          unique_id: `${input.email}:${input.prize}:${Date.now()}`,
+          metric: {
+            data: {
+              type: "metric",
+              attributes: {
+                name: "Spot the Junk Prize",
+              },
+            },
+          },
+          profile: {
+            data: {
+              type: "profile",
+              attributes: {
+                email: input.email,
+                first_name: input.firstName,
+                properties: propertiesOf(input),
+              },
+            },
+          },
+        },
+      },
+    }),
+  });
+  return result.ok || result.status === 202;
 }
 
 export async function subscribeToKlaviyo(input: SubscribeInput): Promise<boolean> {
   const { apiKey, listId, revision } = credentials();
   if (!apiKey || !listId) return false;
 
-  const profileId = await upsertProfile(input, apiKey, revision);
-  const onList = profileId ? await addProfileToList(profileId, listId, apiKey, revision) : false;
-  const subscribed = await subscribeEmail(input, listId, apiKey, revision);
+  const tried = [revision, ...REVISIONS.filter((item) => item !== revision)];
+  let lastError = "unknown";
 
-  if (!onList && !subscribed) {
-    console.error("[klaviyo] profile was not added to the list and subscribe job failed");
-    return false;
+  for (const rev of tried) {
+    try {
+      const profileId = await upsertProfile(input, apiKey, rev);
+      const subscribed = await subscribeEmail(input, listId, apiKey, rev);
+      const onList = profileId ? await addProfileToList(profileId, listId, apiKey, rev) : false;
+      const tracked = await trackPrizeEvent(input, apiKey, rev);
+
+      if (subscribed || tracked || onList) {
+        if (!subscribed) console.error("[klaviyo] subscribe job failed; list/event may still have worked", rev);
+        if (!tracked) console.error("[klaviyo] prize event failed", rev);
+        return true;
+      }
+      lastError = `revision ${rev} did not subscribe, track, or add to list`;
+    } catch (err) {
+      lastError = err instanceof Error ? err.message : String(err);
+      console.error("[klaviyo] revision failed", rev, lastError);
+    }
   }
-  return true;
+
+  console.error("[klaviyo] all attempts failed", lastError);
+  return false;
 }

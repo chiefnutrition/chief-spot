@@ -19,7 +19,13 @@ export const getKlaviyoStatus = createServerFn({ method: "GET" }).handler(async 
 });
 
 export const claimPrize = createServerFn({ method: "POST" })
-  .validator((input: unknown) => prizeSchema.parse(input))
+  .validator((input: unknown) => {
+    const raw =
+      input && typeof input === "object" && "data" in input && (input as { data?: unknown }).data
+        ? (input as { data: unknown }).data
+        : input;
+    return prizeSchema.parse(raw);
+  })
   .handler(async ({ data }) => {
     if (data.website && data.website.trim()) {
       return { ok: true as const, score: 0, synced: false };
