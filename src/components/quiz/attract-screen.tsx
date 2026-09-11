@@ -24,7 +24,7 @@ export function AttractScreen({
           <span className="splash-junk">instant prize!</span>
         </h1>
         <p className="splash-sub mt-8 max-w-4xl font-display text-[clamp(1.35rem,4.4vmin,2.6rem)] font-bold leading-tight tracking-tight text-cream">
-          Spot the junk, win a free bar, beef stick or biltong!
+          Spot the junk, win a free bar, beef sticks, bag of biltong or protein sachets!
         </p>
         <Button
           type="button"

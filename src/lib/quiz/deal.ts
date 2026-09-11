@@ -53,11 +53,11 @@ export const RESULT_COPY: Record<
   all: {
     kicker: "3 of 3",
     title: "You won a free product!",
-    body: "Spot on. Enter your name and email to claim a free bar, beef stick or biltong.",
+    body: "Spot on. Enter your name and email to claim a free bar, beef sticks, bag of biltong or protein sachets.",
     formTitle: "Claim your prize",
     cta: "Get my prize",
     thanks:
-      "Thanks! Show your confirmation email to the team to claim your free bar, beef stick or biltong.",
+      "Thanks! Show your confirmation email to the team to claim your free bar, beef sticks, bag of biltong or protein sachets.",
   },
   two: {
     kicker: "2 of 3",
