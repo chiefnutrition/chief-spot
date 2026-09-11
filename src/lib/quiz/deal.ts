@@ -52,36 +52,36 @@ export const RESULT_COPY: Record<
 > = {
   all: {
     kicker: "3 of 3",
-    title: "You won a free product!",
+    title: "Yes, real feels better! You won a free product!",
     body: "Enter your name and email to claim a free bar, beef stick, bag of biltong or protein sachet.",
     formTitle: "Claim your prize",
     cta: "Get my prize",
     thanks:
-      "Real feels better. Show your confirmation email to the team to claim your free bar, beef stick, bag of biltong or protein sachet.",
+      "Show your confirmation email to the team to claim your free bar, beef stick, bag of biltong or protein sachet.",
   },
   two: {
     kicker: "2 of 3",
-    title: "Better luck next time, but you're still a winner!",
+    title: "So close. Real feels better, and you're still a winner!",
     body: "Enter your details to receive 2 free gifts.",
     formTitle: "Claim your gifts",
     cta: "Get my gifts",
-    thanks: "Real feels better. Check your inbox for 2 free gifts.",
+    thanks: "Check your inbox for 2 free gifts.",
   },
   one: {
     kicker: "1 of 3",
-    title: "Better luck next time, but you're still a winner!",
+    title: "You spotted one. Real feels better, and you're still a winner!",
     body: "Enter your details to receive 2 free gifts.",
     formTitle: "Claim your gifts",
     cta: "Get my gifts",
-    thanks: "Real feels better. Check your inbox for 2 free gifts.",
+    thanks: "Check your inbox for 2 free gifts.",
   },
   none: {
     kicker: "0 of 3",
-    title: "Better luck next time, but you're still a winner!",
+    title: "Better luck next time. Real feels better, and you're still a winner!",
     body: "Enter your details to receive 2 free gifts.",
     formTitle: "Claim your gifts",
     cta: "Get my gifts",
-    thanks: "Real feels better. Check your inbox for 2 free gifts.",
+    thanks: "Check your inbox for 2 free gifts.",
   },
 };
 

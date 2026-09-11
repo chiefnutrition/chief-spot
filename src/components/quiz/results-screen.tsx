@@ -120,9 +120,6 @@ export function ResultsScreen({
     return (
       <div className="flex min-h-full flex-col items-center justify-center px-6 py-10 text-center">
         <ChiefMark />
-        <p className="mt-5 font-brand text-sm font-bold uppercase tracking-[0.2em] text-cream sm:text-base">
-          Real feels better
-        </p>
         <p className="mt-8 font-callout text-score tracking-kicker text-cream">
           You're in
         </p>
@@ -149,12 +146,7 @@ export function ResultsScreen({
       className="mx-auto flex w-full max-w-6xl flex-col gap-6 px-5 py-6 landscape:lg:gap-8 landscape:lg:px-10"
       style={{ paddingBottom: "calc(1.5rem + var(--keyboard-inset, 0px))" }}
     >
-      <div>
-        <ChiefMark className="h-7 sm:h-8" />
-        <p className="mt-3 font-brand text-xs font-bold uppercase tracking-[0.2em] text-cream sm:text-sm">
-          Real feels better
-        </p>
-      </div>
+      <ChiefMark className="h-7 sm:h-8" />
 
       <div className="flex flex-col gap-6 landscape:lg:grid landscape:lg:grid-cols-2 landscape:lg:items-start landscape:lg:gap-12">
         <form
@@ -167,9 +159,6 @@ export function ResultsScreen({
         >
           <p className="font-display text-[clamp(1.7rem,5vw,3.2rem)] font-bold leading-[1.08] tracking-[-0.022em] text-cream">
             {copy.title}
-          </p>
-          <p className="mt-4 font-brand text-sm font-bold uppercase tracking-[0.2em] text-brand sm:text-base">
-            Real feels better
           </p>
           <p className="mt-3 text-pretty text-base text-muted sm:text-lg">{copy.body}</p>
           <div className="flex flex-col gap-1.5">
@@ -237,7 +226,7 @@ export function ResultsScreen({
         </form>
 
         <div className="order-2 rounded-2xl border border-border bg-surface p-6 landscape:lg:order-1 sm:p-8">
-          <p className="font-callout text-score tracking-kicker text-cream tabular-nums">
+          <p className="font-display text-[clamp(1.7rem,5vw,3.2rem)] font-bold leading-[1.08] tracking-[-0.022em] text-cream tabular-nums">
             Your results: {copy.kicker}
           </p>
           <p className="mt-4 max-w-md text-pretty text-sm text-cream">
