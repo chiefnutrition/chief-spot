@@ -48,27 +48,40 @@ export function resultKey(score: number): ResultKey {
 
 export const RESULT_COPY: Record<
   ResultKey,
-  { kicker: string; title: string; body: string }
+  { kicker: string; title: string; body: string; formTitle: string; cta: string; thanks: string }
 > = {
   all: {
     kicker: "3 of 3",
-    title: "Clean sweep.",
-    body: "You spotted every bit of junk. That's Chief thinking. Real food, no ultra-processed anything.",
+    title: "You won a free product!",
+    body: "Spot on. Enter your name and email to claim a free bar, beef stick or biltong.",
+    formTitle: "Claim your prize",
+    cta: "Get my prize",
+    thanks:
+      "Thanks! Show your confirmation email to the team to claim your free bar, beef stick or biltong.",
   },
   two: {
     kicker: "2 of 3",
-    title: "Almost legendary.",
-    body: "Two out of three. The pack-flipper in you is waking up.",
+    title: "Better luck next time, but you're still a winner!",
+    body: "Enter your details to receive 2 free gifts.",
+    formTitle: "Claim your gifts",
+    cta: "Get my gifts",
+    thanks: "Thanks! Check your inbox for 2 free gifts.",
   },
   one: {
     kicker: "1 of 3",
-    title: "One for the real food.",
-    body: "You caught one. Flip more packs. The junk hides in plain sight.",
+    title: "Better luck next time, but you're still a winner!",
+    body: "Enter your details to receive 2 free gifts.",
+    formTitle: "Claim your gifts",
+    cta: "Get my gifts",
+    thanks: "Thanks! Check your inbox for 2 free gifts.",
   },
   none: {
     kicker: "0 of 3",
-    title: "The junk almost won.",
-    body: "No stress. That's why we exist. Extraordinarily clean snacks, nothing to hide.",
+    title: "Better luck next time, but you're still a winner!",
+    body: "Enter your details to receive 2 free gifts.",
+    formTitle: "Claim your gifts",
+    cta: "Get my gifts",
+    thanks: "Thanks! Check your inbox for 2 free gifts.",
   },
 };
 

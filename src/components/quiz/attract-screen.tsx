@@ -19,12 +19,12 @@ export function AttractScreen({
       <div className="relative z-10 flex w-full max-w-5xl flex-col items-center text-center">
         <ChiefMark className="mb-12 h-10 sm:mb-16 sm:h-14" />
         <h1 className="splash-headline font-display text-splash leading-display tracking-[-0.028em] text-cream">
-          <span className="splash-line">Can you</span>
+          <span className="splash-line">Win an</span>
           <br />
-          <span className="splash-junk">spot the junk?</span>
+          <span className="splash-junk">instant prize!</span>
         </h1>
-        <p className="splash-sub mt-8 max-w-4xl font-display text-[clamp(1.5rem,5vmin,3rem)] font-bold leading-tight tracking-tight text-cream">
-          Spot the junk, win a prize!
+        <p className="splash-sub mt-8 max-w-4xl font-display text-[clamp(1.35rem,4.4vmin,2.6rem)] font-bold leading-tight tracking-tight text-cream">
+          Spot the junk, win a free bar, beef stick or biltong!
         </p>
         <Button
           type="button"

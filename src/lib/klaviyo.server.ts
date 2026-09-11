@@ -3,6 +3,7 @@ type SubscribeInput = {
   firstName: string;
   score: number;
   source: string;
+  prize: "instant_product" | "two_gifts";
 };
 
 const KLAVIYO_BASE = "https://a.klaviyo.com/api";
@@ -65,6 +66,7 @@ async function upsertProfile(
         properties: {
           quiz_score: input.score,
           quiz_source: input.source,
+          quiz_prize: input.prize,
         },
       },
     },

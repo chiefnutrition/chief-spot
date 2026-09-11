@@ -134,7 +134,7 @@
   white-space: nowrap;
   animation:
     splash-junk-in 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.18s both,
-    splash-junk-pulse 3.2s ease-in-out 1.4s infinite;
+    splash-junk-pulse 2.2s ease-in-out 1.1s infinite;
 }
 
 .splash-sub {
@@ -215,23 +215,27 @@
 
 @keyframes splash-junk-pulse {
   0%,
-  62%,
+  58%,
   100% {
-    transform: scale(1);
+    transform: rotate(0deg) scale(1);
     color: var(--color-cream);
     text-shadow: none;
   }
-  72% {
-    transform: scale(1.1);
+  66% {
+    transform: rotate(-3deg) scale(1.08);
     color: var(--color-cream);
     text-shadow:
-      0 0 36px color-mix(in oklab, var(--color-brand) 80%, transparent),
-      0 0 10px var(--color-brand);
+      0 0 28px color-mix(in oklab, var(--color-brand) 70%, transparent),
+      0 0 8px var(--color-brand);
   }
-  80% {
-    transform: scale(1.04);
+  74% {
+    transform: rotate(3deg) scale(1.12);
     color: var(--color-brand);
-    text-shadow: 0 0 22px color-mix(in oklab, var(--color-brand) 55%, transparent);
+    text-shadow: 0 0 26px color-mix(in oklab, var(--color-brand) 60%, transparent);
+  }
+  82% {
+    transform: rotate(-1.4deg) scale(1.05);
+    color: var(--color-cream);
   }
 }
 

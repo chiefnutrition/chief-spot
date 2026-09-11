@@ -42,6 +42,7 @@ export const claimPrize = createServerFn({ method: "POST" })
         firstName: data.firstName,
         score,
         source: data.source,
+        prize: score >= 3 ? "instant_product" : "two_gifts",
       });
     } catch (err) {
       console.error("[klaviyo] threw", err);

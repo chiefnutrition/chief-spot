@@ -77,9 +77,9 @@ export function ResultsScreen({
 
   useEffect(() => {
     if (!done) return;
-    const timer = window.setTimeout(onRestart, 12_000);
+    const timer = window.setTimeout(onRestart, score >= 3 ? 25_000 : 15_000);
     return () => window.clearTimeout(timer);
-  }, [done, onRestart]);
+  }, [done, onRestart, score]);
 
   async function onSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -122,13 +122,10 @@ export function ResultsScreen({
           You're in
         </p>
         <h2 className="mt-3 font-display text-hero font-bold leading-display tracking-[-0.028em] text-cream">
-          Prize
-          <br />
-          incoming.
+          Thanks!
         </h2>
-        <p className="mt-5 max-w-md text-pretty text-muted">
-          Watch your inbox, {firstName.trim() || "chief"}. Real food. No junk. A
-          little something from us.
+        <p className="mt-5 max-w-xl text-pretty text-lg text-cream sm:text-xl">
+          {copy.thanks}
         </p>
         <Button
           type="button"
@@ -158,9 +155,10 @@ export function ResultsScreen({
             nudging && "prize-form-nudge",
           )}
         >
-          <p className="font-display text-xl font-bold tracking-[-0.018em] text-cream">
-            Claim your prize
+          <p className="font-display text-[clamp(1.7rem,5vw,3.2rem)] font-bold leading-[1.08] tracking-[-0.022em] text-cream">
+            {copy.title}
           </p>
+          <p className="mt-3 text-pretty text-base text-muted sm:text-lg">{copy.body}</p>
           <div className="flex flex-col gap-1.5">
             <Label htmlFor="firstName">First name</Label>
             <Input
@@ -210,7 +208,7 @@ export function ResultsScreen({
             className="mt-1 w-full"
             disabled={pending || !firstName.trim() || !email.trim()}
           >
-            {pending ? "Sending…" : "Get my prize"}
+            {pending ? "Sending…" : copy.cta}
           </Button>
           <p className="text-center text-xs leading-relaxed text-subtle">
             By submitting you agree to hear from Chief. Unsubscribe any time. Your
@@ -229,10 +227,6 @@ export function ResultsScreen({
           <p className="font-callout text-score tracking-kicker text-cream tabular-nums">
             Your results: {copy.kicker}
           </p>
-          <h2 className="mt-2 font-display text-result font-bold leading-[1.08] tracking-[-0.022em] text-cream">
-            {copy.title}
-          </h2>
-          <p className="mt-3 max-w-md text-pretty text-muted">{copy.body}</p>
           <p className="mt-4 max-w-md text-pretty text-sm text-cream">
             <span className="font-callout text-score tabular-nums">{formatElapsed(elapsedMs)}</span>
             {". "}
