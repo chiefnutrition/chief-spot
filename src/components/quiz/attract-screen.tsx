@@ -18,7 +18,7 @@ export function AttractScreen({
       <GhostGrid />
       <div className="relative z-10 flex w-full max-w-5xl flex-col items-center text-center">
         <ChiefMark className="h-10 sm:h-14" />
-        <p className="mt-5 font-display text-base font-bold tracking-[0.06em] text-cream sm:mt-6 sm:text-xl">
+        <p className="mt-5 font-display text-base font-bold uppercase tracking-[0.12em] text-cream sm:mt-6 sm:text-xl">
           Real feels better
         </p>
         <h1 className="splash-headline mt-14 font-display text-splash leading-display tracking-[-0.028em] text-cream sm:mt-16">
