@@ -132,14 +132,15 @@ export function playAttractChime() {
 export function playCheer() {
   const audio = ready();
   if (!audio || !master) return;
+  const dest = master;
   const t = audio.currentTime;
-  noiseBurst(audio, master, t, 0.55, 0.12);
+  noiseBurst(audio, dest, t, 0.55, 0.12);
   const notes = [523.25, 659.25, 783.99, 1046.5, 1318.5];
   notes.forEach((freq, i) => {
-    tone(audio, master, freq, t + i * 0.09, 0.28, 0.2, i % 2 ? "triangle" : "sine");
+    tone(audio, dest, freq, t + i * 0.09, 0.28, 0.2, i % 2 ? "triangle" : "sine");
   });
-  tone(audio, master, 1568, t + 0.48, 0.4, 0.12, "sine");
-  noiseBurst(audio, master, t + 0.2, 0.7, 0.08);
+  tone(audio, dest, 1568, t + 0.48, 0.4, 0.12, "sine");
+  noiseBurst(audio, dest, t + 0.2, 0.7, 0.08);
 }
 
 export function isSoundUnlocked() {
