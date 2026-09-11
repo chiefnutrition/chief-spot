@@ -53,11 +53,11 @@ export const RESULT_COPY: Record<
   all: {
     kicker: "3 of 3",
     title: "You won a free product!",
-    body: "Spot on. Enter your name and email to claim a free bar, beef stick, bag of biltong or protein sachet.",
+    body: "Enter your name and email to claim a free bar, beef stick, bag of biltong or protein sachet.",
     formTitle: "Claim your prize",
     cta: "Get my prize",
     thanks:
-      "Thanks! Show your confirmation email to the team to claim your free bar, beef stick, bag of biltong or protein sachet.",
+      "Real feels better. Show your confirmation email to the team to claim your free bar, beef stick, bag of biltong or protein sachet.",
   },
   two: {
     kicker: "2 of 3",
@@ -65,7 +65,7 @@ export const RESULT_COPY: Record<
     body: "Enter your details to receive 2 free gifts.",
     formTitle: "Claim your gifts",
     cta: "Get my gifts",
-    thanks: "Thanks! Check your inbox for 2 free gifts.",
+    thanks: "Real feels better. Check your inbox for 2 free gifts.",
   },
   one: {
     kicker: "1 of 3",
@@ -73,7 +73,7 @@ export const RESULT_COPY: Record<
     body: "Enter your details to receive 2 free gifts.",
     formTitle: "Claim your gifts",
     cta: "Get my gifts",
-    thanks: "Thanks! Check your inbox for 2 free gifts.",
+    thanks: "Real feels better. Check your inbox for 2 free gifts.",
   },
   none: {
     kicker: "0 of 3",
@@ -81,7 +81,7 @@ export const RESULT_COPY: Record<
     body: "Enter your details to receive 2 free gifts.",
     formTitle: "Claim your gifts",
     cta: "Get my gifts",
-    thanks: "Thanks! Check your inbox for 2 free gifts.",
+    thanks: "Real feels better. Check your inbox for 2 free gifts.",
   },
 };
 

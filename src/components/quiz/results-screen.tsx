@@ -120,7 +120,10 @@ export function ResultsScreen({
     return (
       <div className="flex min-h-full flex-col items-center justify-center px-6 py-10 text-center">
         <ChiefMark />
-        <p className="mt-6 font-callout text-score tracking-kicker text-cream">
+        <p className="mt-5 font-display text-base font-bold tracking-[0.06em] text-cream sm:text-xl">
+          Real feels better
+        </p>
+        <p className="mt-8 font-callout text-score tracking-kicker text-cream">
           You're in
         </p>
         <h2 className="mt-3 font-display text-hero font-bold leading-display tracking-[-0.028em] text-cream">
@@ -146,7 +149,12 @@ export function ResultsScreen({
       className="mx-auto flex w-full max-w-6xl flex-col gap-6 px-5 py-6 landscape:lg:gap-8 landscape:lg:px-10"
       style={{ paddingBottom: "calc(1.5rem + var(--keyboard-inset, 0px))" }}
     >
-      <ChiefMark className="h-7 sm:h-8" />
+      <div>
+        <ChiefMark className="h-7 sm:h-8" />
+        <p className="mt-3 font-display text-sm font-bold tracking-[0.06em] text-cream sm:text-base">
+          Real feels better
+        </p>
+      </div>
 
       <div className="flex flex-col gap-6 landscape:lg:grid landscape:lg:grid-cols-2 landscape:lg:items-start landscape:lg:gap-12">
         <form
@@ -159,6 +167,9 @@ export function ResultsScreen({
         >
           <p className="font-display text-[clamp(1.7rem,5vw,3.2rem)] font-bold leading-[1.08] tracking-[-0.022em] text-cream">
             {copy.title}
+          </p>
+          <p className="mt-4 font-display text-lg font-bold tracking-[0.04em] text-brand sm:text-xl">
+            Real feels better
           </p>
           <p className="mt-3 text-pretty text-base text-muted sm:text-lg">{copy.body}</p>
           <div className="flex flex-col gap-1.5">
