@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { claimPrize } from "@/lib/quiz/actions";
+import { playStart } from "@/lib/quiz/sounds";
 import { optionsById, RESULT_COPY, resultKey, formatElapsed, speedLine } from "@/lib/quiz/deal";
 import type { QuizOption } from "@/lib/quiz/options";
 import { cn } from "@/lib/utils";
@@ -96,6 +97,7 @@ export function ResultsScreen({
           website,
         },
       });
+      playStart();
       setDone(true);
     } catch (err) {
       const message = err instanceof Error ? err.message : "Could not submit. Try again.";

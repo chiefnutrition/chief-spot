@@ -2,6 +2,15 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import { dealRound, scorePicks } from "@/lib/quiz/deal";
+import {
+  playAttractChime,
+  playCheer,
+  playDeselect,
+  playSelect,
+  playStart,
+  playSubmit,
+  unlockSounds,
+} from "@/lib/quiz/sounds";
 import type { QuizOption } from "@/lib/quiz/options";
 import { AttractScreen } from "./attract-screen";
 import { FlipStage } from "./flip-stage";
@@ -20,6 +29,30 @@ export function QuizApp({ embed, kiosk }: { embed: boolean; kiosk: boolean }) {
   const startedAt = useRef(0);
 
   const source = kiosk ? "kiosk" : embed ? "embed" : "web";
+
+  useEffect(() => {
+    const unlock = () => {
+      void unlockSounds();
+    };
+    const events = ["pointerdown", "touchstart", "keydown"] as const;
+    for (const event of events) {
+      window.addEventListener(event, unlock, { capture: true, passive: true });
+    }
+    return () => {
+      for (const event of events) {
+        window.removeEventListener(event, unlock, { capture: true });
+      }
+    };
+  }, []);
+
+  useEffect(() => {
+    if (phase !== "attract") return;
+    let timer = window.setTimeout(function tick() {
+      playAttractChime();
+      timer = window.setTimeout(tick, 7500);
+    }, 1200);
+    return () => window.clearTimeout(timer);
+  }, [phase]);
 
   const reset = useCallback(() => {
     setPhase("attract");
@@ -51,6 +84,7 @@ export function QuizApp({ embed, kiosk }: { embed: boolean; kiosk: boolean }) {
   }, [phase, reset]);
 
   function play() {
+    void unlockSounds().then(() => playStart());
     setOptions(dealRound());
     setSelectedIds([]);
     setFlipped(false);
@@ -62,8 +96,12 @@ export function QuizApp({ embed, kiosk }: { embed: boolean; kiosk: boolean }) {
 
   function toggle(id: string) {
     setSelectedIds((current) => {
-      if (current.includes(id)) return current.filter((item) => item !== id);
+      if (current.includes(id)) {
+        playDeselect();
+        return current.filter((item) => item !== id);
+      }
       if (current.length >= 3) return current;
+      playSelect();
       return [...current, id];
     });
   }
@@ -72,7 +110,10 @@ export function QuizApp({ embed, kiosk }: { embed: boolean; kiosk: boolean }) {
     if (selectedIds.length !== 3) return;
     const started = startedAt.current || performance.now();
     setElapsedMs(Math.max(0, performance.now() - started));
-    setScore(scorePicks(selectedIds));
+    const nextScore = scorePicks(selectedIds);
+    setScore(nextScore);
+    if (nextScore >= 3) playCheer();
+    else playSubmit();
     requestAnimationFrame(() => setFlipped(true));
   }
 
