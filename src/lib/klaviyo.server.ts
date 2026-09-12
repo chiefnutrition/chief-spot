@@ -7,7 +7,7 @@ type SubscribeInput = {
 };
 
 const KLAVIYO_BASE = "https://a.klaviyo.com/api";
-const REVISIONS = ["2026-01-15", "2025-04-15", "2024-10-15"] as const;
+const REVISIONS = ["2025-04-15", "2026-01-15", "2024-10-15"] as const;
 
 function credentials() {
   const apiKey = process.env.KLAVIYO_API_KEY?.trim();
@@ -59,6 +59,16 @@ function propertiesOf(input: SubscribeInput) {
     quiz_score: input.score,
     quiz_source: input.source,
     quiz_prize: input.prize,
+  };
+}
+
+function emailConsent() {
+  return {
+    email: {
+      marketing: {
+        consent: "SUBSCRIBED" as const,
+      },
+    },
   };
 }
 
@@ -122,18 +132,24 @@ async function addProfileToList(
   return result.ok || result.status === 409;
 }
 
-async function subscribeEmail(
-  input: SubscribeInput,
-  listId: string,
-  apiKey: string,
-  revision: string,
-): Promise<boolean> {
-  const consentedAt = new Date().toISOString();
-  const result = await klaviyoFetch("/profile-subscription-bulk-create-jobs", {
-    method: "POST",
-    apiKey,
-    revision,
-    body: JSON.stringify({
+function subscribePayloads(input: SubscribeInput, listId: string, profileId: string | null) {
+  const listRel = {
+    list: {
+      data: {
+        type: "list",
+        id: listId,
+      },
+    },
+  };
+
+  const profile = (attributes: Record<string, unknown>, id?: string | null) => ({
+    type: "profile",
+    ...(id ? { id } : {}),
+    attributes,
+  });
+
+  return [
+    {
       data: {
         type: "profile-subscription-bulk-create-job",
         attributes: {
@@ -141,36 +157,75 @@ async function subscribeEmail(
           historical_import: false,
           profiles: {
             data: [
-              {
-                type: "profile",
-                attributes: {
+              profile(
+                {
                   email: input.email,
                   first_name: input.firstName,
-                  subscriptions: {
-                    email: {
-                      marketing: {
-                        consent: "SUBSCRIBED",
-                        consented_at: consentedAt,
-                      },
-                    },
-                  },
+                  subscriptions: emailConsent(),
                 },
-              },
+                profileId,
+              ),
             ],
           },
         },
-        relationships: {
-          list: {
-            data: {
-              type: "list",
-              id: listId,
-            },
+        relationships: listRel,
+      },
+    },
+    {
+      data: {
+        type: "profile-subscription-bulk-create-job",
+        attributes: {
+          custom_source: "Chief Spot the Junk Quiz",
+          historical_import: false,
+          profiles: {
+            data: [
+              profile({
+                email: input.email,
+                subscriptions: emailConsent(),
+              }),
+            ],
           },
         },
+        relationships: listRel,
       },
-    }),
-  });
-  return result.ok || result.status === 202 || result.status === 409;
+    },
+    {
+      data: {
+        type: "profile-subscription-bulk-create-job",
+        attributes: {
+          historical_import: false,
+          profiles: {
+            data: [
+              profile({
+                email: input.email,
+                subscriptions: emailConsent(),
+              }),
+            ],
+          },
+        },
+        relationships: listRel,
+      },
+    },
+  ];
+}
+
+async function subscribeEmail(
+  input: SubscribeInput,
+  listId: string,
+  profileId: string | null,
+  apiKey: string,
+  revision: string,
+): Promise<boolean> {
+  for (const payload of subscribePayloads(input, listId, profileId)) {
+    const result = await klaviyoFetch("/profile-subscription-bulk-create-jobs", {
+      method: "POST",
+      apiKey,
+      revision,
+      body: JSON.stringify(payload),
+    });
+    if (result.ok || result.status === 202 || result.status === 409) return true;
+  }
+  return false;
 }
 
 async function trackPrizeEvent(
@@ -218,27 +273,20 @@ export async function subscribeToKlaviyo(input: SubscribeInput): Promise<boolean
   if (!apiKey || !listId) return false;
 
   const tried = [revision, ...REVISIONS.filter((item) => item !== revision)];
-  let lastError = "unknown";
 
   for (const rev of tried) {
-    try {
-      const profileId = await upsertProfile(input, apiKey, rev);
-      const subscribed = await subscribeEmail(input, listId, apiKey, rev);
-      const onList = profileId ? await addProfileToList(profileId, listId, apiKey, rev) : false;
-      const tracked = await trackPrizeEvent(input, apiKey, rev);
-
-      if (subscribed || tracked || onList) {
-        if (!subscribed) console.error("[klaviyo] subscribe job failed; list/event may still have worked", rev);
-        if (!tracked) console.error("[klaviyo] prize event failed", rev);
-        return true;
-      }
-      lastError = `revision ${rev} did not subscribe, track, or add to list`;
-    } catch (err) {
-      lastError = err instanceof Error ? err.message : String(err);
-      console.error("[klaviyo] revision failed", rev, lastError);
+    const profileId = await upsertProfile(input, apiKey, rev);
+    const subscribed = await subscribeEmail(input, listId, profileId, apiKey, rev);
+    if (!subscribed) {
+      console.error("[klaviyo] subscribe job failed", rev);
+      continue;
     }
+    if (profileId) await addProfileToList(profileId, listId, apiKey, rev);
+    const tracked = await trackPrizeEvent(input, apiKey, rev);
+    if (!tracked) console.error("[klaviyo] prize event failed after subscribe", rev);
+    return true;
   }
 
-  console.error("[klaviyo] all attempts failed", lastError);
+  console.error("[klaviyo] could not subscribe profile to email marketing");
   return false;
 }
