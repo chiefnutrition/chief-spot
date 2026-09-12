@@ -38,7 +38,7 @@ function useKeyboardInset() {
   }, []);
 }
 
-const EMAIL_DOMAINS = ["gmail.com", "hotmail.com"] as const;
+const EMAIL_DOMAINS = ["gmail.com", "hotmail.com", "outlook.com", "yahoo.com", "bigpond.com"] as const;
 
 function withEmailDomain(value: string, domain: string) {
   const local = value.trim().split("@")[0] ?? "";
