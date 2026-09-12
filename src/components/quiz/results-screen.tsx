@@ -38,6 +38,14 @@ function useKeyboardInset() {
   }, []);
 }
 
+const EMAIL_DOMAINS = ["gmail.com", "hotmail.com"] as const;
+
+function withEmailDomain(value: string, domain: string) {
+  const local = value.trim().split("@")[0] ?? "";
+  if (!local) return "";
+  return `${local}@${domain}`;
+}
+
 function scrollFieldIntoView(el: HTMLElement) {
   const reveal = () => {
     el.scrollIntoView({ block: "center", inline: "nearest", behavior: "smooth" });
@@ -184,6 +192,9 @@ export function ResultsScreen({
               type="email"
               autoComplete="email"
               inputMode="email"
+              autoCapitalize="none"
+              autoCorrect="off"
+              spellCheck={false}
               required
               maxLength={200}
               value={email}
@@ -192,6 +203,22 @@ export function ResultsScreen({
               placeholder="you@email.com"
               className="scroll-mb-[calc(var(--keyboard-inset,0px)+2rem)]"
             />
+            <div className="mt-2 flex flex-wrap gap-2">
+              {EMAIL_DOMAINS.map((domain) => (
+                <button
+                  key={domain}
+                  type="button"
+                  onMouseDown={(e) => e.preventDefault()}
+                  onClick={() => {
+                    const next = withEmailDomain(email, domain);
+                    if (next) setEmail(next);
+                  }}
+                  className="rounded-pill border border-border bg-surface-2 px-3 py-2 font-brand text-sm font-bold text-cream transition-colors hover:border-brand hover:bg-brand hover:text-white"
+                >
+                  @{domain}
+                </button>
+              ))}
+            </div>
           </div>
           <div className="absolute -left-[9999px] h-0 w-0 overflow-hidden" aria-hidden="true">
             <label htmlFor="website">Website</label>
