@@ -12,6 +12,7 @@ import { optionsById, RESULT_COPY, resultKey, formatElapsed, speedLine } from "@
 import type { QuizOption } from "@/lib/quiz/options";
 import { cn } from "@/lib/utils";
 import { ChiefMark } from "./chief-mark";
+import { ClaimQr } from "./claim-qr";
 
 function useKeyboardInset() {
   useEffect(() => {
@@ -70,6 +71,10 @@ export function ResultsScreen({
   onRestart: () => void;
 }) {
   const copy = RESULT_COPY[resultKey(score)];
+  const claimUrl =
+    score >= 3
+      ? "https://wearechief.com/pages/junk-win"
+      : "https://wearechief.com/pages/junk-consolation";
   const selected = optionsById(selectedIds);
   const junkOnBoard = optionsById(optionIds).filter((o) => o.kind === "junk");
   const missedJunk = junkOnBoard.filter((o) => !selectedIds.includes(o.id));
@@ -157,9 +162,7 @@ export function ResultsScreen({
       <ChiefMark className="h-7 sm:h-8" />
 
       <div className="flex flex-col gap-6 landscape:lg:grid landscape:lg:grid-cols-2 landscape:lg:items-start landscape:lg:gap-12">
-        <form
-          ref={formRef}
-          onSubmit={onSubmit}
+        <div
           className={cn(
             "order-1 flex scroll-mb-[calc(var(--keyboard-inset,0px)+1.5rem)] scroll-mt-6 flex-col gap-4 rounded-2xl border border-border bg-surface p-6 landscape:lg:order-2 sm:p-8",
             nudging && "prize-form-nudge",
@@ -168,7 +171,19 @@ export function ResultsScreen({
           <p className="font-display text-[clamp(1.7rem,5vw,3.2rem)] font-bold leading-[1.08] tracking-[-0.022em] text-cream">
             {copy.title}
           </p>
-          <p className="mt-3 text-pretty text-base text-muted sm:text-lg">{copy.body}</p>
+          <p className="text-pretty text-base text-muted sm:text-lg">{copy.body}</p>
+          <ClaimQr url={claimUrl} caption={copy.formTitle} />
+          <form ref={formRef} onSubmit={onSubmit} className="flex flex-col gap-4">
+            <details
+              className="rounded-xl border border-border bg-bg/40 px-4 py-3"
+              onToggle={(e) => {
+                if ((e.currentTarget as HTMLDetailsElement).open) hushForm();
+              }}
+            >
+              <summary className="cursor-pointer font-brand text-sm font-bold text-muted">
+                Or type it here
+              </summary>
+              <div className="mt-4 flex flex-col gap-4">
           <div className="flex flex-col gap-1.5">
             <Label htmlFor="firstName">First name</Label>
             <Input
@@ -243,6 +258,9 @@ export function ResultsScreen({
             By submitting you agree to hear from Chief. Unsubscribe any time. Your
             prize email is on the way after you join the list.
           </p>
+              </div>
+            </details>
+          </form>
           <button
             type="button"
             onClick={onRestart}
@@ -250,7 +268,7 @@ export function ResultsScreen({
           >
             Skip and play again
           </button>
-        </form>
+        </div>
 
         <div className="order-2 rounded-2xl border border-border bg-surface p-6 landscape:lg:order-1 sm:p-8">
           <p className="font-display text-[clamp(1.7rem,5vw,3.2rem)] font-bold leading-[1.08] tracking-[-0.022em] text-cream tabular-nums">

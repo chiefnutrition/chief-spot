@@ -53,7 +53,7 @@ export const RESULT_COPY: Record<
   all: {
     kicker: "3 of 3",
     title: "Yes, real feels better! You won a free product!",
-    body: "Enter your name and email to claim a free bar, beef stick, bag of biltong or protein sachet.",
+    body: "Scan the code to claim a free bar, beef stick, bag of biltong or protein sachet.",
     formTitle: "Claim your prize",
     cta: "Get my prize",
     thanks:
@@ -62,7 +62,7 @@ export const RESULT_COPY: Record<
   two: {
     kicker: "2 of 3",
     title: "So close. You're still a winner and remember, real feels better!",
-    body: "Enter your details to receive 2 free gifts.",
+    body: "Scan the code to receive 2 free gifts.",
     formTitle: "Claim your gifts",
     cta: "Get my gifts",
     thanks: "Check your inbox for 2 free gifts.",
@@ -70,7 +70,7 @@ export const RESULT_COPY: Record<
   one: {
     kicker: "1 of 3",
     title: "You spotted one. You're still a winner and remember, real feels better!",
-    body: "Enter your details to receive 2 free gifts.",
+    body: "Scan the code to receive 2 free gifts.",
     formTitle: "Claim your gifts",
     cta: "Get my gifts",
     thanks: "Check your inbox for 2 free gifts.",
@@ -78,7 +78,7 @@ export const RESULT_COPY: Record<
   none: {
     kicker: "0 of 3",
     title: "Better luck next time. But, you're still a winner and remember, real feels better!",
-    body: "Enter your details to receive 2 free gifts.",
+    body: "Scan the code to receive 2 free gifts.",
     formTitle: "Claim your gifts",
     cta: "Get my gifts",
     thanks: "Check your inbox for 2 free gifts.",
